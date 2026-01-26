@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Electric Store - Toko Listrik Modern</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        .nav-btn {
+            background: rgba(255,255,255,0.2);
+            border: 2px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: 600;
+        }
+        .nav-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Main Container */
+        .main-container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+            padding: 40px;
+            border-radius: 20px;
+            color: white;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+        .hero h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+        .hero p {
+            font-size: 18px;
+            opacity: 0.95;
+        }
+
+        /* Product Grid */
+        .product-section {
+            margin-bottom: 30px;
+        }
+        .section-title {
+            color: white;
+            font-size: 28px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+        }
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            cursor: pointer;
+        }
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+        .product-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+        .product-card h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .product-price {
+            color: #28a745;
+            font-size: 22px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .product-stock {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        .buy-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        .buy-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Chat Assistant - Floating Button */
+        .chat-toggle {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+            transition: 0.3s;
+            z-index: 999;
+        }
+        .chat-toggle:hover {
+            transform: scale(1.1);
+        }
+        .chat-toggle span {
+            color: white;
+            font-size: 30px;
+        }
+
+        /* Chat Window */
+        .chat-window {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 400px;
+            height: 550px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            display: none;
+            flex-direction: column;
+            z-index: 998;
+            overflow: hidden;
+        }
+        .chat-window.active {
+            display: flex;
+        }
+        .chat-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            font-weight: bold;
+            font-size: 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .close-chat {
+            cursor: pointer;
+            font-size: 24px;
+        }
+        #chatlog {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            background-color: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Bubble Chat */
+        .msg { 
+            margin-bottom: 15px; 
+            padding: 12px 16px; 
+            border-radius: 18px; 
+            max-width: 75%; 
+            line-height: 1.4; 
+            word-wrap: break-word;
+        }
+        .user-msg { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; 
+            align-self: flex-end; 
+            margin-left: auto; 
+            border-bottom-right-radius: 4px; 
+        }
+        .bot-msg { 
+            background-color: white; 
+            color: #333; 
+            align-self: flex-start; 
+            border-bottom-left-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        /* Katalog dalam Chat */
+        .katalog-container { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 10px; 
+            margin-top: 10px; 
+            width: 100%;
+        }
+        .card { 
+            border: 1px solid #ddd; 
+            border-radius: 8px; 
+            padding: 8px; 
+            background: #fff; 
+            text-align: center; 
+            font-size: 12px; 
+        }
+        .card img { 
+            width: 100%; 
+            height: 80px; 
+            object-fit: cover; 
+            border-radius: 5px; 
+        }
+        .card b { 
+            display: block; 
+            margin: 5px 0; 
+            color: #333; 
+        }
+        .card span { 
+            color: #28a745; 
+            font-weight: bold; 
+        }
+
+        #input-area { 
+            display: flex; 
+            gap: 10px; 
+            padding: 15px;
+            background: white;
+            border-top: 1px solid #eee;
+        }
+        #userInput { 
+            flex: 1; 
+            padding: 12px; 
+            border: 1px solid #ddd; 
+            border-radius: 25px; 
+            outline: none; 
+        }
+        
+        /* Voice Button */
+        #voiceBtn {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+            position: relative;
+        }
+        #voiceBtn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
+        #voiceBtn.recording {
+            background: linear-gradient(135deg, #f03e3e 0%, #c92a2a 100%);
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.7); }
+            50% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(255, 107, 107, 0); }
+        }
+        
+        #sendBtn { 
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; 
+            border: none; 
+            border-radius: 50%; 
+            cursor: pointer; 
+            transition: 0.3s;
+            font-weight: 600;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #sendBtn:hover { 
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Voice Status Indicator */
+        .voice-status {
+            position: absolute;
+            bottom: 70px;
+            left: 15px;
+            right: 15px;
+            background: rgba(255, 107, 107, 0.95);
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 13px;
+            text-align: center;
+            display: none;
+            animation: slideUp 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .voice-status.active {
+            display: block;
+        }
+        @keyframes slideUp {
+            from { transform: translateY(10px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Admin Modal */
+        #adminModal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.6);
+        }
+        .modal-content {
+            background-color: white;
+            margin: 8% auto;
+            padding: 30px;
+            border-radius: 15px;
+            width: 400px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+        .modal-content h3 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .modal-content input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+        }
+        .modal-content button {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 10px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        #saveBtn {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+        }
+        #saveBtn:hover {
+            transform: translateY(-2px);
+        }
+        #closeBtn {
+            background: #6c757d;
+            color: white;
+        }
+
+        /* Loading */
+        .loading {
+            text-align: center;
+            color: white;
+            font-size: 18px;
+            padding: 20px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .hero h1 {
+                font-size: 24px;
+            }
+            .chat-window {
+                width: 90%;
+                right: 5%;
+                left: 5%;
+            }
+            .product-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+        }
+    </style>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+        import { getFirestore, collection, getDocs, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyA3ypH9s7syfqzxNef9FPS0LuiDt4VPQ6c",
+            authDomain: "toko-listrik-cd339.firebaseapp.com",
+            projectId: "toko-listrik-cd339",
+            storageBucket: "toko-listrik-cd339.firebasestorage.app",
+            messagingSenderId: "734086491961",
+            appId: "1:734086491961:web:bfb899c33c8056a3b8c2e8",
+            measurementId: "G-QME5WLJZ9L"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        async function ambilProduk() {
+            const querySnapshot = await getDocs(collection(db, "produk"));
+            let produkList = [];
+            querySnapshot.forEach((doc) => {
+                produkList.push(doc.data());
+            });
+            return produkList;
+        }
+
+        async function cariProdukKategori(keyword) {
+            const allProducts = await ambilProduk();
+            const lowerKeyword = keyword.toLowerCase().trim();
+            
+            const hasil = allProducts.filter(p => {
+                const nama = (p.nama || '').toLowerCase();
+                const kategori = (p.kategori || '').toLowerCase();
+                return nama.includes(lowerKeyword) || kategori.includes(lowerKeyword);
+            });
+            
+            return hasil;
+        }
+
+        async function simpanProdukKeFirebase(data) {
+            try {
+                await addDoc(collection(db, "produk"), data);
+                return true;
+            } catch (e) {
+                console.error("Error Firebase:", e);
+                throw e;
+            }
+        }
+
+        window.ambilProduk = ambilProduk;
+        window.simpanProdukKeFirebase = simpanProdukKeFirebase;
+        window.cariProdukKategori = cariProdukKategori;
+    </script>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="header-content">
+            <div class="logo">
+                <span>⚡</span>
+                <span>E-Electric Store</span>
+            </div>
+            <div class="nav-buttons">
+                <button class="nav-btn" onclick="scrollToProduk()">📦 Produk</button>
+                <button class="nav-btn" id="adminBtn">🔐 Admin</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- Hero Section -->
+        <div class="hero">
+            <h1>🔌 Solusi Lengkap Kebutuhan Listrik Anda</h1>
+            <p>Produk berkualitas tinggi dengan harga terbaik</p>
+        </div>
+
+        <!-- Product Section -->
+        <div class="product-section" id="produkSection">
+            <h2 class="section-title">✨ Katalog Produk Terbaru</h2>
+            <div class="product-grid" id="productGrid">
+                <div class="loading">⏳ Memuat produk...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Chat Button -->
+    <div class="chat-toggle" id="chatToggle">
+        <span>💬</span>
+    </div>
+
+    <!-- Chat Window -->
+    <div class="chat-window" id="chatWindow">
+        <div class="chat-header">
+            <span>💬 Voice Chat Assistant</span>
+            <span class="close-chat" onclick="toggleChat()">✕</span>
+        </div>
+        <div id="chatlog"></div>
+        <div class="voice-status" id="voiceStatus">🎤 Mendengarkan...</div>
+        <div id="input-area">
+            <button id="voiceBtn" title="Klik untuk Voice Input">🎤</button>
+            <input type="text" id="userInput" placeholder="Ketik atau gunakan voice...">
+            <button id="sendBtn" title="Kirim Pesan">📤</button>
+        </div>
+    </div>
+
+    <!-- Admin Modal -->
+    <div id="adminModal">
+        <div class="modal-content">
+            <h3>🔧 Tambah Produk Baru</h3>
+            <input type="text" id="addNama" placeholder="Nama Produk">
+            <input type="text" id="addKategori" placeholder="Kategori (lampu/kabel/saklar/stop kontak/dll)">
+            <input type="number" id="addHarga" placeholder="Harga (Rp)">
+            <input type="number" id="addStok" placeholder="Jumlah Stok">
+            <input type="text" id="addGambar" placeholder="URL Gambar">
+            <button id="saveBtn">💾 Simpan ke Database</button>
+            <button id="closeBtn">❌ Batal</button>
+        </div>
+    </div>
+
+    <script>
+        const chatlog = document.getElementById('chatlog');
+        const userInput = document.getElementById('userInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const voiceBtn = document.getElementById('voiceBtn');
+        const voiceStatus = document.getElementById('voiceStatus');
+        const adminBtn = document.getElementById('adminBtn');
+        const adminModal = document.getElementById('adminModal');
+        const closeBtn = document.getElementById('closeBtn');
+        const saveBtn = document.getElementById('saveBtn');
+        const chatToggle = document.getElementById('chatToggle');
+        const chatWindow = document.getElementById('chatWindow');
+        const productGrid = document.getElementById('productGrid');
+
+        // Speech Recognition Setup
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        let recognition = null;
+        let isRecording = false;
+
+        if (SpeechRecognition) {
+            recognition = new SpeechRecognition();
+            recognition.lang = 'id-ID';
+            recognition.continuous = false;
+            recognition.interimResults = false;
+
+            recognition.onstart = () => {
+                isRecording = true;
+                voiceBtn.classList.add('recording');
+                voiceStatus.classList.add('active');
+                voiceBtn.innerHTML = '⏹️';
+            };
+
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                userInput.value = transcript;
+                kirimPesan();
+            };
+
+            recognition.onerror = (event) => {
+                console.error('Speech recognition error:', event.error);
+                let errorMsg = '❌ Error: ';
+                if (event.error === 'no-speech') {
+                    errorMsg += 'Tidak ada suara terdeteksi';
+                } else if (event.error === 'not-allowed') {
+                    errorMsg += 'Izin mikrofon ditolak';
+                } else {
+                    errorMsg += event.error;
+                }
+                voiceStatus.textContent = errorMsg;
+                setTimeout(() => {
+                    voiceStatus.classList.remove('active');
+                }, 3000);
+            };
+
+            recognition.onend = () => {
+                isRecording = false;
+                voiceBtn.classList.remove('recording');
+                voiceStatus.classList.remove('active');
+                voiceBtn.innerHTML = '🎤';
+            };
+        }
+
+        // Voice Button Click
+        voiceBtn.onclick = () => {
+            if (!recognition) {
+                alert('⚠️ Browser Anda tidak mendukung voice input. Silakan gunakan Chrome atau Edge.');
+                return;
+            }
+
+            if (isRecording) {
+                recognition.stop();
+            } else {
+                try {
+                    recognition.start();
+                } catch (e) {
+                    console.error('Recognition start error:', e);
+                }
+            }
+        };
+
+        // Text-to-Speech Function
+        function speak(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'id-ID';
+                utterance.rate = 1.0;
+                utterance.pitch = 1.0;
+                utterance.volume = 1.0;
+                
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        // Toggle Chat Window
+        function toggleChat() {
+            chatWindow.classList.toggle('active');
+        }
+        chatToggle.onclick = toggleChat;
+        window.toggleChat = toggleChat;
+
+        // Scroll to Products
+        function scrollToProduk() {
+            document.getElementById('produkSection').scrollIntoView({ behavior: 'smooth' });
+        }
+        window.scrollToProduk = scrollToProduk;
+
+        // Load Products on Page Load
+        window.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const products = await window.ambilProduk();
+                if (products.length === 0) {
+                    productGrid.innerHTML = '<p style="color: white; grid-column: 1/-1; text-align: center;">📦 Belum ada produk. Silakan tambahkan melalui Admin Panel.</p>';
+                } else {
+                    displayProducts(products);
+                }
+            } catch (e) {
+                productGrid.innerHTML = '<p style="color: white; grid-column: 1/-1; text-align: center;">❌ Gagal memuat produk. Periksa koneksi Firebase.</p>';
+                console.error(e);
+            }
+        });
+
+        // Display Products in Grid
+        function displayProducts(products) {
+            productGrid.innerHTML = '';
+            products.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                const imgUrl = p.gambar || 'https://via.placeholder.com/250x180?text=Produk+Listrik';
+                card.innerHTML = `
+                    <img src="${imgUrl}" alt="${p.nama}" onerror="this.src='https://via.placeholder.com/250x180?text=No+Image'">
+                    <h3>${p.nama}</h3>
+                    <div class="product-price">Rp ${Number(p.harga).toLocaleString('id-ID')}</div>
+                    <div class="product-stock">📦 Stok: ${p.stok || 0} unit</div>
+                    <button class="buy-btn" onclick="beliProduk('${p.nama}')">🛒 Beli Sekarang</button>
+                `;
+                productGrid.appendChild(card);
+            });
+        }
+
+        // Buy Product
+        function beliProduk(nama) {
+            const message = `✅ Terima kasih!\n\nAnda tertarik dengan: ${nama}\n\nSilakan hubungi admin untuk proses pembelian:\n📞 WhatsApp: 0812-3456-7890`;
+            alert(message);
+            speak(`Terima kasih atas minat Anda pada ${nama}. Silakan hubungi admin kami untuk proses pembelian.`);
+        }
+        window.beliProduk = beliProduk;
+
+        // Admin Login
+        adminBtn.onclick = function() {
+            const password = prompt("🔐 Masukkan Password Admin:");
+            if (password === "admin123") {
+                adminModal.style.display = "block";
+            } else if (password !== null) {
+                alert("❌ Password Salah!");
+            }
+        };
+
+        // Close Modal
+        closeBtn.onclick = () => { 
+            adminModal.style.display = "none"; 
+            document.getElementById('addNama').value = '';
+            document.getElementById('addKategori').value = '';
+            document.getElementById('addHarga').value = '';
+            document.getElementById('addStok').value = '';
+            document.getElementById('addGambar').value = '';
+        };
+
+        // Save Product
+        saveBtn.onclick = async function() {
+            const nama = document.getElementById('addNama').value.trim();
+            const kategori = document.getElementById('addKategori').value.trim();
+            const harga = document.getElementById('addHarga').value;
+            const stok = document.getElementById('addStok').value;
+            const gambar = document.getElementById('addGambar').value.trim();
+
+            if (!nama || !harga) {
+                alert("⚠️ Nama dan Harga wajib diisi!");
+                return;
+            }
+
+            if (harga <= 0) {
+                alert("⚠️ Harga harus lebih dari 0!");
+                return;
+            }
+
+            saveBtn.innerText = "⏳ Menyimpan...";
+            saveBtn.disabled = true;
+
+            try {
+                const dataBaru = {
+                    nama: nama,
+                    kategori: kategori || "umum",
+                    harga: Number(harga),
+                    stok: Number(stok) || 0,
+                    gambar: gambar || "https://via.placeholder.com/250x180?text=" + encodeURIComponent(nama)
+                };
+
+                await window.simpanProdukKeFirebase(dataBaru);
+                
+                alert("✅ Produk berhasil disimpan!");
+                adminModal.style.display = "none";
+                
+                document.getElementById('addNama').value = '';
+                document.getElementById('addKategori').value = '';
+                document.getElementById('addHarga').value = '';
+                document.getElementById('addStok').value = '';
+                document.getElementById('addGambar').value = '';
+                
+                const products = await window.ambilProduk();
+                displayProducts(products);
+            } catch (error) {
+                alert("❌ Gagal menyimpan: " + error.message);
+                console.error(error);
+            } finally {
+                saveBtn.innerText = "💾 Simpan ke Database";
+                saveBtn.disabled = false;
+            }
+        };
+
+        // Chat Functionality
+        sendBtn.onclick = kirimPesan;
+        userInput.onkeypress = (e) => { if(e.key === 'Enter') kirimPesan(); };
+
+        // Welcome message with voice
+        setTimeout(() => {
+            if (chatlog.children.length === 0) {
+                const welcomeMsg = 'Halo! Selamat datang di E-Electric Store. Ada yang bisa saya bantu?';
+                tambahBubble('👋 ' + welcomeMsg, 'bot-msg');
+                speak(welcomeMsg);
+            }
+        }, 1000);
+
+        // Daftar kategori produk listrik
+        const kategoriProduk = [
+            'lampu', 'led', 'bohlam', 'neon',
+            'kabel', 'kawat', 'nya', 'nymhy',
+            'saklar', 'switch', 'stop kontak', 'colokan', 'socket',
+            'kipas', 'fan', 'exhaust',
+            'blender', 'mixer',
+            'setrika', 'iron',
+            'senter', 'flashlight',
+            'mcb', 'breaker', 'sekering',
+            'fitting', 'dudukan lampu',
+            'steker', 'plug',
+            'isolasi', 'tape',
+            'socket', 'terminal',
+            'konektor', 'connector',
+            'timer', 'dimmer',
+            'stabilizer', 'stavolt'
+        ];
+
+        // Fungsi untuk deteksi kategori dalam teks
+        function deteksiKategori(text) {
+            const lowerText = text.toLowerCase();
+            for(let kategori of kategoriProduk) {
+                if(lowerText.includes(kategori)) {
+                    return kategori;
+                }
+            }
+            return null;
+        }
+
+        async function kirimPesan() {
+            const text = userInput.value.trim();
+            if(!text) return;
+
+            tambahBubble(text, 'user-msg');
+            userInput.value = '';
+
+            const lowerText = text.toLowerCase();
+            let response = '';
+            
+            // Cek sapaan dulu
+            if(lowerText.includes('halo') || lowerText.includes('hai') || lowerText.includes('hi') || lowerText.includes('hello')) {
+                response = 'Halo! Selamat datang di E-Electric Store. Ada yang bisa saya bantu? Mau cari produk apa?';
+                tambahBubble('👋 ' + response, 'bot-msg');
+                speak(response);
+                return;
+            }
+            
+            // PRIORITAS DETEKSI KATEGORI PRODUK
+            // Deteksi kategori dari berbagai bentuk pertanyaan
+            const kategoriDetected = deteksiKategori(text);
+            
+            if(kategoriDetected) {
+                // Jika ada kata kategori terdeteksi, langsung cari produk
+                tambahBubble(`Mencari produk ${kategoriDetected}... ⏳`, 'bot-msg');
+                try {
+                    const data = await window.cariProdukKategori(kategoriDetected);
+                    if (data.length === 0) {
+                        response = `Maaf, produk ${kategoriDetected} sedang kosong. Mau lihat produk lain? Ketik "katalog" untuk melihat semua produk kami.`;
+                        tambahBubble('😔 ' + response, 'bot-msg');
+                        speak(response);
+                    } else {
+                        tampilkanKatalog(data, kategoriDetected);
+                        speak(`Ditemukan ${data.length} produk Beli anjing ${kategoriDetected} untuk Anda`);
+                    }
+                } catch(e) {
+                    response = 'Gagal memuat produk. Silakan coba lagi.';
+                    tambahBubble('❌ ' + response, 'bot-msg');
+                    speak(response);
+                    console.error(e);
+                }
+                return; // Langsung return, tidak cek kondisi lain
+            }
+            
+            // Jika TIDAK ada kategori terdeteksi, baru cek command lain
+            if(lowerText === 'katalog' || lowerText === 'produk' || lowerText === 'barang' || lowerText === 'semua' || lowerText === 'all') {
+                tambahBubble('Sedang mengambil katalog produk... ⏳', 'bot-msg');
+                try {
+                    const data = await window.ambilProduk();
+                    if (data.length === 0) {
+                        response = 'Maaf, belum ada produk tersedia saat ini.';
+                        tambahBubble('📦 ' + response, 'bot-msg');
+                        speak(response);
+                    } else {
+                        tampilkanKatalog(data);
+                        speak(`Menampilkan ${data.length} produk untuk Anda`);
+                    }
+                } catch(e) {
+                    response = 'Gagal memuat produk. Silakan coba lagi.';
+                    tambahBubble('❌ ' + response, 'bot-msg');
+                    speak(response);
+                }
+                return;
+            }
+            
+            if(lowerText.includes('kategori') || lowerText.includes('jenis')) {
+                response = 'Kami punya berbagai kategori produk:\n\n💡 Lampu & LED\n🔌 Kabel & Kawat\n⚡ Saklar & Stop Kontak\n🌀 Kipas Angin\n🔧 Alat Listrik Lainnya\n\nLangsung sebutkan aja kategori yang dicari! Contoh: "lampu", "kabel", atau "kipas"';
+                tambahBubble('📂 ' + response, 'bot-msg');
+                speak('Kami punya berbagai kategori produk listrik. Langsung sebutkan saja kategori yang dicari!');
+                return;
+            }
+            
+            if(lowerText.includes('harga') || lowerText.includes('berapa')) {
+                response = 'Untuk info harga, langsung sebutkan produk yang Anda cari ya! Contoh: "lampu LED" atau "kabel NYA" 💰';
+                tambahBubble('💰 ' + response, 'bot-msg');
+                speak(response);
+                return;
+            }
+            
+            if(lowerText.includes('beli') || lowerText.includes('pesan') || lowerText.includes('order')) {
+                response = 'Silakan klik tombol Beli Sekarang pada produk yang Anda inginkan di halaman produk!';
+                tambahBubble('🛒 ' + response, 'bot-msg');
+                speak(response);
+                return;
+            }
+            
+            if(lowerText.includes('stok')) {
+                response = 'Untuk cek stok, silakan lihat katalog produk. Setiap produk mencantumkan jumlah stok tersedia.';
+                tambahBubble('📦 ' + response, 'bot-msg');
+                speak(response);
+                return;
+            }
+            
+            if(lowerText.includes('kontak') || lowerText.includes('hubungi') || lowerText.includes('whatsapp') || lowerText.includes('wa')) {
+                response = 'Anda bisa menghubungi kami melalui WhatsApp: 0812-3456-7890 atau Email: info@e-electric.com';
+                tambahBubble('📞 ' + response, 'bot-msg');
+                speak(response);
+                return;
+            }
+            
+            if(lowerText.includes('terima kasih') || lowerText.includes('thanks') || lowerText.includes('makasih')) {
+                response = 'Sama-sama! Senang bisa membantu Anda. Ada lagi yang bisa saya bantu?';
+                tambahBubble('😊 ' + response, 'bot-msg');
+                speak(response);
+                return;
+            }
+            
+            if(lowerText.includes('jam') || lowerText.includes('buka') || lowerText.includes('operasional')) {
+                response = 'Jam operasional kami: Senin sampai Jumat pukul 08:00 sampai 17:00, Sabtu pukul 08:00 sampai 15:00, dan Minggu tutup';
+                tambahBubble('🕐 ' + response, 'bot-msg');
+                speak(response);
+                return;
+            }
+            
+            if(lowerText.includes('lokasi') || lowerText.includes('alamat') || lowerText.includes('dimana') || lowerText.includes('di mana')) {
+                response = 'Alamat toko kami: Jalan Listrik Raya Nomor 123, Cikarang, Bekasi, Jawa Barat';
+                tambahBubble('📍 ' + response, 'bot-msg');
+                speak(response);
+                return;
+            }
+            
+            // Default: Jika tidak ada command spesifik, anggap sebagai pencarian produk
+            // Tidak perlu lagi ada section "Search products by keyword" terpisah
+            tambahBubble(`Mencari "${text}"... ⏳`, 'bot-msg');
+            try {
+                const data = await window.cariProdukKategori(text);
+                if (data.length === 0) {
+                    response = `Maaf, "${text}" tidak ditemukan. 😔\n\nMungkin maksud Anda:\n• Lampu / LED\n• Kabel\n• Saklar\n• Stop Kontak\n• Kipas Angin\n\nAtau ketik "katalog" untuk lihat semua produk!`;
+                    tambahBubble(response, 'bot-msg');
+                    speak(`Maaf, ${text} tidak ditemukan. Coba sebutkan kategori lain atau ketik katalog untuk melihat semua produk`);
+                } else {
+                    tampilkanKatalog(data, text);
+                    speak(`Ditemukan ${data.length} produk ${text} untuk Anda`);
+                }
+            } catch(e) {
+                response = 'Gagal memuat produk. Silakan coba lagi.';
+                tambahBubble('❌ ' + response, 'bot-msg');
+                speak(response);
+                console.error(e);
+            }
+        }
+
+        function tambahBubble(teks, tipe) {
+            const div = document.createElement('div');
+            div.className = `msg ${tipe}`;
+            div.textContent = teks;
+            chatlog.appendChild(div);
+            chatlog.scrollTop = chatlog.scrollHeight;
+        }
+
+        function tampilkanKatalog(daftar, kategori = null) {
+            const container = document.createElement('div');
+            container.className = 'katalog-container';
+            
+            daftar.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                const imgUrl = p.gambar || 'https://via.placeholder.com/150?text=Produk';
+                card.innerHTML = `
+                    <img src="${imgUrl}" onerror="this.src='https://via.placeholder.com/150?text=No+Image'">
+                    <b>${p.nama}</b>
+                    <span>Rp ${Number(p.harga).toLocaleString('id-ID')}</span>
+                    <small>Stok: ${p.stok || 0}</small>
+                `;
+                container.appendChild(card);
+            });
+
+            const botMsgWrap = document.createElement('div');
+            botMsgWrap.className = 'msg bot-msg';
+            
+            if (kategori) {
+                botMsgWrap.appendChild(document.createTextNode(`📋 Ditemukan ${daftar.length} produk ${kategori}:`));
+            } else {
+                botMsgWrap.appendChild(document.createTextNode(`📋 Berikut katalog lengkap kami (${daftar.length} produk):`));
+            }
+            
+            botMsgWrap.appendChild(container);
+            
+            chatlog.appendChild(botMsgWrap);
+            chatlog.scrollTop = chatlog.scrollHeight;
+        }
+    </script>
+</body>
+</html>
