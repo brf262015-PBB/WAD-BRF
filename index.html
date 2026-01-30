@@ -1,0 +1,2651 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodFinder - Premium Chat Platform</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+        
+        :root {
+            --primary-gold: #D4AF37;
+            --primary-dark: #1a1a1a;
+            --secondary-dark: #2d2d2d;
+            --accent-burgundy: #722F37;
+            --light-cream: #F5F5DC;
+            --white: #ffffff;
+            --gray-light: #f8f8f8;
+            --gray-medium: #e0e0e0;
+            --gray-dark: #666;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.1);
+            --shadow-md: 0 4px 16px rgba(0,0,0,0.15);
+            --shadow-lg: 0 8px 32px rgba(0,0,0,0.2);
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: hsl(0, 50%, 99%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Modern Geometric Pattern Background */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--primary-gold) 25%, transparent 25%, transparent 50%, var(--primary-gold) 50%, var(--primary-gold) 75%, transparent 75%, transparent);
+            z-index: -1;
+            opacity: 0.1;
+        }
+
+        /* Floating particles animation */
+        body::after {
+            content: '';
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-image:
+                radial-gradient(circle at 15% 25%, rgba(212, 175, 55, 0.4) 0%, transparent 2px),
+                radial-gradient(circle at 85% 15%, rgba(212, 175, 55, 0.3) 0%, transparent 2px),
+                radial-gradient(circle at 45% 85%, rgba(114, 47, 55, 0.3) 0%, transparent 2px),
+                radial-gradient(circle at 75% 65%, rgba(212, 175, 55, 0.35) 0%, transparent 2px),
+                radial-gradient(circle at 25% 55%, rgba(114, 47, 55, 0.25) 0%, transparent 2px),
+                radial-gradient(circle at 65% 45%, rgba(212, 175, 55, 0.3) 0%, transparent 2px),
+                radial-gradient(circle at 35% 75%, rgba(212, 175, 55, 0.25) 0%, transparent 2px),
+                radial-gradient(circle at 90% 85%, rgba(114, 47, 55, 0.3) 0%, transparent 2px);
+            pointer-events: none;
+            z-index: 0;
+            animation: particleFloat 20s ease-in-out infinite;
+        }
+
+        @keyframes particleFloat {
+            0%, 100% {
+                opacity: 1;
+                transform: translateY(0px);
+            }
+            50% {
+                opacity: 0.6;
+                transform: translateY(-20px);
+            }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Mode Selection */
+        #modeSelection {
+            background: var(--white);
+            padding: 50px 40px;
+            padding-bottom: 100px;
+            border-radius: 24px;
+            box-shadow: var(--shadow-lg);
+            text-align: center;
+            animation: fadeInUp 0.6s ease;
+            max-width: 600px;
+            border: 1px solid var(--gray-medium);
+            position: relative;
+        }
+
+        #modeSelection h1 {
+            font-family: 'Playfair Display', serif;
+            color: var(--primary-dark);
+            margin-bottom: 8px;
+            font-size: 42px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        #modeSelection .subtitle {
+            color: var(--gray-dark);
+            margin-bottom: 40px;
+            font-size: 15px;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+
+        .mode-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            position: relative;
+        }
+
+        .mode-btn {
+            padding: 30px 45px;
+            border: 2px solid var(--gray-medium);
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            background: var(--white);
+            min-width: 200px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mode-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .mode-btn:hover::before {
+            left: 100%;
+        }
+
+        .mode-btn.customer {
+            color: var(--primary-dark);
+        }
+
+        .mode-btn.vendor {
+            color: var(--primary-dark);
+        }
+
+        .mode-btn.admin {
+            position: absolute;
+            bottom: -80px;
+            right: -20px;
+            min-width: auto;
+            padding: 8px 12px;
+            font-size: 11px;
+            opacity: 0.3;
+            border: 1px solid var(--gray-medium);
+            border-radius: 8px;
+            gap: 5px;
+            transition: all 0.3s;
+        }
+
+        .mode-btn.admin span {
+            font-size: 14px;
+        }
+
+        .mode-btn.admin .btn-label {
+            font-size: 10px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+        }
+
+        .mode-btn.admin:hover {
+            opacity: 0.8;
+            transform: translateY(-2px);
+            border-color: var(--accent-burgundy);
+        }
+
+        .mode-btn.customer:hover,
+        .mode-btn.vendor:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-gold);
+        }
+
+        .mode-btn span {
+            font-size: 48px;
+        }
+
+        .mode-btn .btn-label {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        /* Vendor Login */
+        #vendorLogin {
+            display: none;
+            background: var(--white);
+            padding: 50px 40px;
+            border-radius: 24px;
+            box-shadow: var(--shadow-lg);
+            animation: fadeInUp 0.6s ease;
+            max-width: 450px;
+            width: 100%;
+        }
+
+        #vendorLogin h2 {
+            font-family: 'Playfair Display', serif;
+            color: var(--primary-dark);
+            margin-bottom: 12px;
+            text-align: center;
+            font-size: 32px;
+            font-weight: 700;
+        }
+
+        #vendorLogin .subtitle {
+            color: var(--gray-dark);
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 12px;
+        }
+
+        .form-group label {
+            display: block;
+            color: var(--primary-dark);
+            margin-bottom: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 2px solid var(--gray-medium);
+            border-radius: 10px;
+            outline: none;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            transition: all 0.3s;
+            background: var(--white);
+        }
+
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            border-color: var(--primary-gold);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+        }
+
+        .login-btn {
+            padding: 12px;
+            background: linear-gradient(135deg, var(--primary-gold) 0%, #B8941E 100%);
+            color: var(--white);
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s;
+            margin-top: 5px;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .back-to-mode {
+            margin-top: 20px;
+            padding: 12px;
+            background: var(--gray-light);
+            border: 1px solid var(--gray-medium);
+            border-radius: 12px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: 600;
+            color: var(--gray-dark);
+            transition: all 0.3s;
+        }
+
+        .back-to-mode:hover {
+            background: var(--gray-medium);
+        }
+
+        /* Admin Panel */
+        #adminPanel {
+            display: none;
+            background: var(--white);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+            animation: fadeInUp 0.6s ease;
+            max-width: 450px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        #adminPanel h2 {
+            font-family: 'Playfair Display', serif;
+            color: var(--accent-burgundy);
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 26px;
+            font-weight: 700;
+        }
+
+        .admin-section {
+            background: var(--gray-light);
+            padding: 18px;
+            border-radius: 12px;
+            margin-bottom: 18px;
+        }
+
+        .admin-section h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--primary-dark);
+            margin-bottom: 15px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .vendor-list-admin {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .vendor-item-admin {
+            background: var(--white);
+            border: 1px solid var(--gray-medium);
+            border-radius: 10px;
+            padding: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .vendor-item-admin:hover {
+            border-color: var(--primary-gold);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .vendor-item-info h4 {
+            color: var(--primary-dark);
+            font-size: 14px;
+            margin-bottom: 3px;
+            font-weight: 600;
+        }
+
+        .vendor-item-info p {
+            color: var(--gray-dark);
+            font-size: 12px;
+        }
+
+        .delete-vendor-btn {
+            padding: 6px 12px;
+            background: var(--accent-burgundy);
+            color: var(--white);
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .delete-vendor-btn:hover {
+            background: #5a2529;
+            transform: scale(1.05);
+        }
+
+        /* Chat Container */
+        #chatContainer {
+            display: none;
+            width: 100%;
+            max-width: 480px;
+            height: 700px;
+            background: var(--white);
+            border-radius: 24px;
+            box-shadow: var(--shadow-lg);
+            flex-direction: column;
+            overflow: hidden;
+            animation: fadeInUp 0.6s ease;
+            border: 1px solid var(--gray-medium);
+        }
+
+        /* Header */
+        .chat-header {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 100%);
+            color: var(--white);
+            padding: 25px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid var(--primary-gold);
+        }
+
+        .chat-header.vendor-mode {
+            background: linear-gradient(135deg, var(--accent-burgundy) 0%, #5a2529 100%);
+        }
+
+        .header-info {
+            flex: 1;
+        }
+
+        .header-info h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            margin-bottom: 4px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .header-info p {
+            font-size: 12px;
+            opacity: 0.85;
+            font-weight: 400;
+        }
+
+        .back-btn {
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: var(--white);
+            padding: 10px 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+        }
+
+        .back-btn:hover {
+            background: rgba(255,255,255,0.25);
+            transform: translateX(-3px);
+        }
+
+        /* Chat Log */
+        #chatlog {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: linear-gradient(to bottom, #f8f8f8 0%, #ffffff 100%);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        /* Message Bubbles */
+        .message {
+            display: flex;
+            flex-direction: column;
+            max-width: 80%;
+            animation: messageSlideIn 0.4s ease;
+        }
+
+        .message.customer {
+            align-self: flex-end;
+        }
+
+        .message.vendor {
+            align-self: flex-start;
+        }
+
+        .message-header {
+            font-size: 11px;
+            color: var(--gray-dark);
+            margin-bottom: 4px;
+            padding: 0 6px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .message.customer .message-header {
+            text-align: right;
+        }
+
+        .message-bubble {
+            padding: 12px 16px;
+            border-radius: 16px;
+            word-wrap: break-word;
+            line-height: 1.5;
+            position: relative;
+            box-shadow: var(--shadow-sm);
+            font-size: 14px;
+        }
+
+        .message.customer .message-bubble {
+            background: linear-gradient(135deg, var(--primary-gold) 0%, #B8941E 100%);
+            color: var(--white);
+            border-bottom-right-radius: 4px;
+        }
+
+        .message.vendor .message-bubble {
+            background: var(--white);
+            color: var(--primary-dark);
+            border: 1px solid var(--gray-medium);
+            border-bottom-left-radius: 4px;
+        }
+
+        .message-time {
+            font-size: 10px;
+            color: rgba(255,255,255,0.8);
+            text-align: right;
+            margin-top: 4px;
+        }
+
+        .message.vendor .message-time {
+            color: var(--gray-dark);
+        }
+
+        /* System Message */
+        .system-message {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(212, 175, 55, 0.05) 100%);
+            color: var(--gray-dark);
+            padding: 12px 18px;
+            border-radius: 12px;
+            font-size: 12px;
+            align-self: center;
+            margin: 8px 0;
+            text-align: center;
+            max-width: 85%;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            font-weight: 500;
+        }
+
+        /* Menu Cards */
+        .menu-offer {
+            background: var(--white);
+            border-radius: 16px;
+            overflow: hidden;
+            margin-top: 8px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--gray-medium);
+            transition: all 0.3s;
+        }
+
+        .menu-offer:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .menu-offer img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .menu-offer-info {
+            padding: 16px;
+        }
+
+        .menu-offer-info h4 {
+            font-family: 'Playfair Display', serif;
+            color: var(--primary-dark);
+            margin-bottom: 8px;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .menu-offer-info .price {
+            color: var(--primary-gold);
+            font-weight: 700;
+            font-size: 20px;
+            margin-bottom: 8px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .menu-offer-info .description {
+            color: var(--gray-dark);
+            font-size: 13px;
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        .menu-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 14px;
+        }
+
+        .menu-option-btn {
+            padding: 8px 16px;
+            background: var(--gray-light);
+            border: 2px solid var(--gray-medium);
+            border-radius: 20px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .menu-option-btn:hover {
+            background: var(--light-cream);
+            border-color: var(--primary-gold);
+        }
+
+        .menu-option-btn.selected {
+            background: var(--primary-gold);
+            color: var(--white);
+            border-color: var(--primary-gold);
+        }
+
+        .order-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, var(--accent-burgundy) 0%, #5a2529 100%);
+            color: var(--white);
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.3s;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .order-btn:hover {
+            transform: scale(1.02);
+            box-shadow: var(--shadow-md);
+        }
+
+        .order-btn:disabled {
+            background: var(--gray-medium);
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        /* Input Area */
+        .input-area {
+            padding: 16px;
+            background: var(--gray-light);
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            border-top: 1px solid var(--gray-medium);
+        }
+
+        #userInput {
+            flex: 1;
+            padding: 14px 18px;
+            border: 2px solid var(--gray-medium);
+            border-radius: 24px;
+            outline: none;
+            font-size: 14px;
+            background: var(--white);
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s;
+        }
+
+        #userInput:focus {
+            border-color: var(--primary-gold);
+        }
+
+        #sendBtn {
+            width: 48px;
+            height: 48px;
+            border: none;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-gold) 0%, #B8941E 100%);
+            color: var(--white);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            transition: all 0.3s;
+            box-shadow: var(--shadow-sm);
+        }
+
+        #sendBtn:hover {
+            transform: scale(1.1);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Vendor Actions */
+        .vendor-actions {
+            padding: 14px 16px;
+            background: var(--gray-light);
+            border-top: 1px solid var(--gray-medium);
+            display: flex;
+            gap: 10px;
+        }
+
+        #manageMenuBtn, #showMenuBtn {
+            flex: 1;
+            padding: 14px;
+            color: var(--white);
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.3s;
+            font-size: 13px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        #manageMenuBtn {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 100%);
+        }
+
+        #showMenuBtn {
+            background: linear-gradient(135deg, var(--accent-burgundy) 0%, #5a2529 100%);
+        }
+
+        #manageMenuBtn:hover, #showMenuBtn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Modals */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.75);
+            animation: fadeIn 0.3s;
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-content {
+            background-color: var(--white);
+            margin: 3% auto;
+            padding: 0;
+            border-radius: 24px;
+            width: 90%;
+            max-width: 650px;
+            max-height: 90vh;
+            overflow: hidden;
+            animation: slideUpModal 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 100%);
+            color: var(--white);
+            padding: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid var(--primary-gold);
+        }
+
+        .modal-header h3 {
+            font-family: 'Playfair Display', serif;
+            margin: 0;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .close-modal {
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: var(--white);
+            padding: 8px 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .close-modal:hover {
+            background: rgba(255,255,255,0.25);
+        }
+
+        .modal-body {
+            padding: 25px;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .menu-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .menu-item-card {
+            background: var(--white);
+            border: 2px solid var(--gray-medium);
+            border-radius: 16px;
+            padding: 18px;
+            display: flex;
+            gap: 18px;
+            transition: all 0.3s;
+        }
+
+        .menu-item-card:hover {
+            border-color: var(--primary-gold);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .menu-item-img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+
+        .menu-item-info {
+            flex: 1;
+        }
+
+        .menu-item-info h5 {
+            font-family: 'Playfair Display', serif;
+            color: var(--primary-dark);
+            margin-bottom: 6px;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .menu-item-info .menu-price {
+            color: var(--primary-gold);
+            font-weight: 700;
+            font-size: 16px;
+            margin-bottom: 6px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .menu-item-info .menu-desc {
+            color: var(--gray-dark);
+            font-size: 12px;
+            margin-bottom: 6px;
+            line-height: 1.5;
+        }
+
+        .menu-item-variants {
+            font-size: 11px;
+            color: var(--gray-dark);
+            font-weight: 500;
+        }
+
+        .menu-item-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .edit-menu-btn, .delete-menu-btn {
+            padding: 8px 14px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 700;
+            transition: all 0.3s;
+            letter-spacing: 0.3px;
+        }
+
+        .edit-menu-btn {
+            background: var(--primary-gold);
+            color: var(--white);
+        }
+
+        .delete-menu-btn {
+            background: var(--accent-burgundy);
+            color: var(--white);
+        }
+
+        .edit-menu-btn:hover, .delete-menu-btn:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .option-inputs {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .option-input-row {
+            display: flex;
+            gap: 8px;
+        }
+
+        .option-input-row input {
+            flex: 1;
+            padding: 10px 14px;
+        }
+
+        .add-option-btn {
+            padding: 10px 18px;
+            background: var(--primary-gold);
+            color: var(--white);
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 700;
+            margin-top: 8px;
+            transition: all 0.3s;
+        }
+
+        .add-option-btn:hover {
+            transform: scale(1.02);
+        }
+
+        .remove-option-btn {
+            padding: 10px;
+            background: var(--accent-burgundy);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 700;
+            transition: all 0.3s;
+        }
+
+        .remove-option-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .modal-buttons button {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.3s;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, var(--primary-gold) 0%, #B8941E 100%);
+            color: var(--white);
+        }
+
+        .cancel-btn {
+            background: var(--gray-light);
+            color: var(--gray-dark);
+            border: 2px solid var(--gray-medium);
+        }
+
+        .modal-buttons button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .show-menu-item {
+            background: var(--white);
+            border: 2px solid var(--gray-medium);
+            border-radius: 16px;
+            padding: 16px;
+            display: flex;
+            gap: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .show-menu-item:hover {
+            border-color: var(--primary-gold);
+            background: var(--light-cream);
+            transform: translateX(6px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .show-menu-item img {
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+
+        .show-menu-item-info {
+            flex: 1;
+        }
+
+        .show-menu-item-info h5 {
+            font-family: 'Playfair Display', serif;
+            color: var(--primary-dark);
+            font-size: 15px;
+            margin-bottom: 4px;
+            font-weight: 700;
+        }
+
+        .show-menu-item-info .price {
+            color: var(--primary-gold);
+            font-weight: 700;
+            font-size: 15px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 50px 20px;
+            color: var(--gray-dark);
+        }
+
+        .empty-state-icon {
+            font-size: 56px;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+
+        .empty-state p {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from { 
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUpModal {
+            from { 
+                opacity: 0;
+                transform: translateY(50px) scale(0.95);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes messageSlideIn {
+            from { 
+                transform: translateY(15px);
+                opacity: 0;
+            }
+            to { 
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Scrollbar */
+        #chatlog::-webkit-scrollbar, 
+        .modal-body::-webkit-scrollbar, 
+        #adminPanel::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        #chatlog::-webkit-scrollbar-track, 
+        .modal-body::-webkit-scrollbar-track,
+        #adminPanel::-webkit-scrollbar-track {
+            background: var(--gray-light);
+        }
+
+        #chatlog::-webkit-scrollbar-thumb, 
+        .modal-body::-webkit-scrollbar-thumb,
+        #adminPanel::-webkit-scrollbar-thumb {
+            background: var(--primary-gold);
+            border-radius: 3px;
+        }
+
+        #chatlog::-webkit-scrollbar-thumb:hover, 
+        .modal-body::-webkit-scrollbar-thumb:hover,
+        #adminPanel::-webkit-scrollbar-thumb:hover {
+            background: #B8941E;
+        }
+
+        .error-message {
+            background: #ffebee;
+            color: #c62828;
+            padding: 12px 16px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            font-size: 13px;
+            font-weight: 600;
+            border-left: 4px solid #c62828;
+        }
+
+        .success-message {
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 12px 16px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            font-size: 13px;
+            font-weight: 600;
+            border-left: 4px solid #2e7d32;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            #modeSelection h1 {
+                font-size: 32px;
+            }
+
+            .mode-buttons {
+                flex-direction: column;
+            }
+
+            .mode-btn {
+                width: 100%;
+            }
+
+            #chatContainer {
+                max-width: 100%;
+                height: 100vh;
+                border-radius: 0;
+            }
+        }
+
+        /* Digital Clock Styles */
+        .digital-clock {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(15px);
+            border: 2px solid var(--primary-gold);
+            border-radius: 20px;
+            padding: 20px 25px;
+            color: var(--white);
+            font-family: 'Montserrat', monospace;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 20px rgba(212, 175, 55, 0.2);
+            z-index: 1000;
+            min-width: 200px;
+            transition: all 0.3s ease;
+        }
+
+        .digital-clock:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(212, 175, 55, 0.3);
+        }
+
+        .clock-time {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary-gold);
+            margin-bottom: 8px;
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.8);
+            letter-spacing: 2px;
+        }
+
+        .clock-date {
+            font-size: 13px;
+            color: var(--gray-light);
+            font-weight: 500;
+            text-transform: capitalize;
+            opacity: 0.9;
+        }
+
+        /* Clock Animation */
+        .digital-clock {
+            animation: clockPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes clockPulse {
+            0%, 100% {
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 20px rgba(212, 175, 55, 0.2);
+            }
+            50% {
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 25px rgba(212, 175, 55, 0.4);
+            }
+        }
+
+        /* Responsive Clock */
+        @media (max-width: 600px) {
+            .digital-clock {
+                top: 15px;
+                right: 15px;
+                padding: 15px 20px;
+                min-width: 170px;
+            }
+
+            .clock-time {
+                font-size: 24px;
+                letter-spacing: 1px;
+            }
+
+            .clock-date {
+                font-size: 12px;
+            }
+        }
+    </style>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp, getDocs, deleteDoc, doc, where, updateDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyC6bTQKIoiKdiibj8DtYjqokHTBByBaPUI",
+            authDomain: "wad-26-brf.firebaseapp.com",
+            projectId: "wad-26-brf",
+            storageBucket: "wad-26-brf.firebasestorage.app",
+            messagingSenderId: "168552988861",
+            appId: "1:168552988861:web:9609f99a5763ddf6a637d4",
+            measurementId: "G-RKMJDCB0CM"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        const GLOBAL_ROOM_ID = "global_foodfinder";
+        const ADMIN_PASSWORD = "admin123"; // Password admin default
+
+        // ========================================
+        // 📋 DAFTAR KREDENSIAL VENDOR DEFAULT
+        // ========================================
+        // Vendor 1: Warung Bu Siti
+        //   Username: busiti
+        //   Password: siti123
+        //
+        // Vendor 2: Kedai Kopi Mas Budi
+        //   Username: masbudi
+        //   Password: budi123
+        //
+        // Vendor 3: Dapur Mama Lina
+        //   Username: mamalina
+        //   Password: lina123
+        //
+        // Vendor 4: Bakery Pak Amir
+        //   Username: pakamir
+        //   Password: amir123
+        // ========================================
+
+        const DEFAULT_VENDORS = [
+            {
+                nama: "Warung Bu Siti",
+                emoji: "🍜",
+                username: "busiti",
+                password: "siti123"
+            },
+            {
+                nama: "Kedai Kopi Mas Budi",
+                emoji: "☕",
+                username: "masbudi",
+                password: "budi123"
+            },
+            {
+                nama: "Dapur Mama Lina",
+                emoji: "🍛",
+                username: "mamalina",
+                password: "lina123"
+            },
+            {
+                nama: "Bakery Pak Amir",
+                emoji: "🥐",
+                username: "pakamir",
+                password: "amir123"
+            }
+        ];
+
+        const DEFAULT_MENUS = [
+            // Warung Bu Siti
+            {
+                vendor: "Warung Bu Siti",
+                nama: "Nasi Goreng Spesial",
+                harga: 25000,
+                deskripsi: "Nasi goreng dengan telur, ayam suwir, dan kerupuk",
+                gambar: "https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=500",
+                kategori: "makanan",
+                opsiVarian: ["Pedas", "Sedang", "Tidak Pedas"]
+            },
+            {
+                vendor: "Warung Bu Siti",
+                nama: "Mie Goreng Jawa",
+                harga: 20000,
+                deskripsi: "Mie goreng khas Jawa dengan bumbu rahasia",
+                gambar: "https://images.unsplash.com/photo-1585032226651-759b368d7246?w=500",
+                kategori: "makanan",
+                opsiVarian: ["Pedas", "Sedang"]
+            },
+            // Kedai Kopi Mas Budi
+            {
+                vendor: "Kedai Kopi Mas Budi",
+                nama: "Kopi Susu Gula Aren",
+                harga: 18000,
+                deskripsi: "Kopi susu dengan gula aren asli yang manis dan creamy",
+                gambar: "https://images.unsplash.com/photo-1534687886635-f4f905e6e21f?w=500",
+                kategori: "minuman",
+                opsiVarian: ["Panas", "Dingin"]
+            },
+            {
+                vendor: "Kedai Kopi Mas Budi",
+                nama: "Es Teh Manis",
+                harga: 8000,
+                deskripsi: "Teh manis segar dengan es batu",
+                gambar: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=500",
+                kategori: "minuman",
+                opsiVarian: []
+            },
+            // Dapur Mama Lina
+            {
+                vendor: "Dapur Mama Lina",
+                nama: "Ayam Geprek Sambal Matah",
+                harga: 28000,
+                deskripsi: "Ayam crispy geprek dengan sambal matah khas Bali",
+                gambar: "https://images.unsplash.com/photo-1633964913295-ceb43826183c?w=500",
+                kategori: "makanan",
+                opsiVarian: ["Level 1", "Level 2", "Level 3", "Level 5"]
+            },
+            {
+                vendor: "Dapur Mama Lina",
+                nama: "Soto Ayam Kuning",
+                harga: 22000,
+                deskripsi: "Soto ayam kuning dengan telur, soun, dan emping",
+                gambar: "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=500",
+                kategori: "makanan",
+                opsiVarian: []
+            },
+            // Bakery Pak Amir
+            {
+                vendor: "Bakery Pak Amir",
+                nama: "Roti Croissant Butter",
+                harga: 15000,
+                deskripsi: "Croissant buttery yang renyah di luar, lembut di dalam",
+                gambar: "https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=500",
+                kategori: "snack",
+                opsiVarian: []
+            },
+            {
+                vendor: "Bakery Pak Amir",
+                nama: "Donut Cokelat Premium",
+                harga: 12000,
+                deskripsi: "Donut lembut dengan topping cokelat premium",
+                gambar: "https://images.unsplash.com/photo-1551024506-0bccd828d307?w=500",
+                kategori: "dessert",
+                opsiVarian: ["Cokelat", "Strawberry", "Vanilla"]
+            }
+        ];
+
+        let lastActivityTime = Date.now();
+        let inactivityTimer = null;
+
+        function updateActivity() {
+            lastActivityTime = Date.now();
+            startInactivityTimer();
+        }
+
+        function startInactivityTimer() {
+            if (inactivityTimer) {
+                clearTimeout(inactivityTimer);
+            }
+
+            inactivityTimer = setTimeout(async () => {
+                const timeSinceLastActivity = Date.now() - lastActivityTime;
+                const fiveMinutes = 5 * 60 * 1000;
+
+                if (timeSinceLastActivity >= fiveMinutes) {
+                    console.log("🧹 Auto-cleanup: 5 menit tanpa aktivitas");
+                    await cleanupOldMessages();
+                }
+            }, 5 * 60 * 1000);
+        }
+
+        async function cleanupOldMessages() {
+            try {
+                const fiveMinutesAgo = Date.now() - (5 * 60 * 1000);
+                const q = query(collection(db, "chat_rooms"), where("roomId", "==", GLOBAL_ROOM_ID));
+                const snapshot = await getDocs(q);
+
+                snapshot.forEach((docSnap) => {
+                    const data = docSnap.data();
+                    if (data.timestampNumber && data.timestampNumber < fiveMinutesAgo) {
+                        deleteDoc(docSnap.ref).catch(err => console.error("Delete error:", err));
+                    }
+                });
+
+                console.log("✅ Cleanup complete");
+            } catch (e) {
+                console.error("Cleanup error:", e);
+            }
+        }
+
+        async function hapusSemuaPesanChat() {
+            try {
+                const q = query(collection(db, "chat_rooms"), where("roomId", "==", GLOBAL_ROOM_ID));
+                const snapshot = await getDocs(q);
+
+                const deletePromises = [];
+                snapshot.forEach((docSnap) => {
+                    deletePromises.push(deleteDoc(docSnap.ref));
+                });
+
+                await Promise.all(deletePromises);
+                console.log("✅ Semua pesan chat berhasil dihapus");
+                return true;
+            } catch (e) {
+                console.error("Error menghapus chat:", e);
+                return false;
+            }
+        }
+
+        async function kirimPesanKeDB(pengirim, tipe, isi, menuData = null, targetVendor = null) {
+            try {
+                const messageData = {
+                    roomId: GLOBAL_ROOM_ID,
+                    pengirim: pengirim,
+                    tipe: tipe,
+                    isi: isi,
+                    menuData: menuData,
+                    targetVendor: targetVendor,
+                    timestamp: serverTimestamp(),
+                    tanggal: new Date().toISOString(),
+                    timestampNumber: Date.now()
+                };
+
+                await addDoc(collection(db, "chat_rooms"), messageData);
+                updateActivity();
+                return true;
+            } catch (e) {
+                console.error("Error:", e);
+                return false;
+            }
+        }
+
+        function listenChat(callback) {
+            const q = query(
+                collection(db, "chat_rooms"),
+                orderBy("timestamp", "asc")
+            );
+            return onSnapshot(q, (snapshot) => {
+                const messages = [];
+                const now = Date.now();
+                const fiveMinutes = 5 * 60 * 1000;
+
+                snapshot.forEach((doc) => {
+                    const data = doc.data();
+                    if (data.roomId === GLOBAL_ROOM_ID) {
+                        const messageAge = now - (data.timestampNumber || 0);
+                        const timeSinceLastActivity = now - lastActivityTime;
+                        
+                        if (messageAge > fiveMinutes && timeSinceLastActivity > fiveMinutes) {
+                            deleteDoc(doc.ref).catch(err => console.error("Delete error:", err));
+                        } else {
+                            messages.push({ id: doc.id, docRef: doc.ref, ...data });
+                        }
+                    }
+                });
+                
+                callback(messages);
+            });
+        }
+
+        // FUNGSI SETUP DEFAULT DATA
+        async function setupDefaultVendors() {
+            try {
+                const existingVendors = await ambilSemuaVendor();
+                
+                // Jika sudah ada vendor, skip setup
+                if (existingVendors.length > 0) {
+                    console.log("✅ Vendor sudah ada, skip setup");
+                    return;
+                }
+
+                console.log("🔧 Setting up default vendors...");
+                
+                for (const vendor of DEFAULT_VENDORS) {
+                    await tambahVendorBaru(vendor.nama, vendor.emoji, vendor.username, vendor.password);
+                }
+                
+                console.log("✅ Default vendors created successfully!");
+            } catch (e) {
+                console.error("Error setup vendors:", e);
+            }
+        }
+
+        async function setupDefaultMenus() {
+            try {
+                const querySnapshot = await getDocs(collection(db, "menu_database"));
+                
+                // Jika sudah ada menu, skip setup
+                if (querySnapshot.size > 0) {
+                    console.log("✅ Menu sudah ada, skip setup");
+                    return;
+                }
+
+                console.log("🔧 Setting up default menus...");
+                
+                for (const menu of DEFAULT_MENUS) {
+                    await simpanMenuKeDatabase(menu.vendor, menu);
+                }
+                
+                console.log("✅ Default menus created successfully!");
+            } catch (e) {
+                console.error("Error setup menus:", e);
+            }
+        }
+
+        // Jalankan setup saat pertama kali load
+        window.addEventListener('load', async () => {
+            await setupDefaultVendors();
+            await setupDefaultMenus();
+        });
+
+        // FUNGSI VENDOR MANAGEMENT
+        async function tambahVendorBaru(namaVendor, emoji, username, password) {
+            try {
+                await addDoc(collection(db, "vendor_credentials"), {
+                    nama: namaVendor,
+                    emoji: emoji,
+                    username: username,
+                    password: password,
+                    timestamp: serverTimestamp()
+                });
+                return true;
+            } catch (e) {
+                console.error("Error:", e);
+                return false;
+            }
+        }
+
+        async function ambilSemuaVendor() {
+            try {
+                const snapshot = await getDocs(collection(db, "vendor_credentials"));
+                const vendors = [];
+                snapshot.forEach((doc) => {
+                    vendors.push({ id: doc.id, ...doc.data() });
+                });
+                return vendors;
+            } catch (e) {
+                console.error("Error:", e);
+                return [];
+            }
+        }
+
+        async function hapusVendor(vendorId) {
+            try {
+                await deleteDoc(doc(db, "vendor_credentials", vendorId));
+                return true;
+            } catch (e) {
+                console.error("Error:", e);
+                return false;
+            }
+        }
+
+        async function cekKredensialVendor(username, password) {
+            try {
+                const vendors = await ambilSemuaVendor();
+                const vendor = vendors.find(v => v.username === username && v.password === password);
+                return vendor || null;
+            } catch (e) {
+                console.error("Error:", e);
+                return null;
+            }
+        }
+
+        // FUNGSI MENU
+        async function simpanMenuKeDatabase(vendorName, menuData) {
+            try {
+                await addDoc(collection(db, "menu_database"), {
+                    vendor: vendorName,
+                    nama: menuData.nama,
+                    harga: menuData.harga,
+                    deskripsi: menuData.deskripsi,
+                    gambar: menuData.gambar,
+                    kategori: menuData.kategori || 'makanan',
+                    opsiVarian: menuData.opsiVarian || [],
+                    timestamp: serverTimestamp(),
+                    tanggal: new Date().toISOString()
+                });
+                return true;
+            } catch (e) {
+                console.error("Error:", e);
+                return false;
+            }
+        }
+
+        async function updateMenuDiDatabase(menuId, menuData) {
+            try {
+                const menuRef = doc(db, "menu_database", menuId);
+                await updateDoc(menuRef, {
+                    nama: menuData.nama,
+                    harga: menuData.harga,
+                    deskripsi: menuData.deskripsi,
+                    gambar: menuData.gambar,
+                    kategori: menuData.kategori,
+                    opsiVarian: menuData.opsiVarian || []
+                });
+                return true;
+            } catch (e) {
+                console.error("Error:", e);
+                return false;
+            }
+        }
+
+        async function hapusMenuDariDatabase(menuId) {
+            try {
+                await deleteDoc(doc(db, "menu_database", menuId));
+                return true;
+            } catch (e) {
+                console.error("Error:", e);
+                return false;
+            }
+        }
+
+        async function ambilMenuVendor(vendorName) {
+            try {
+                const q = query(
+                    collection(db, "menu_database"),
+                    where("vendor", "==", vendorName)
+                );
+                const snapshot = await getDocs(q);
+                const menuList = [];
+                snapshot.forEach((doc) => {
+                    menuList.push({ id: doc.id, ...doc.data() });
+                });
+                return menuList;
+            } catch (e) {
+                console.error("Error:", e);
+                return [];
+            }
+        }
+
+        async function cariMenuDariDatabase(keyword) {
+            try {
+                const querySnapshot = await getDocs(collection(db, "menu_database"));
+                let menuList = [];
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    menuList.push({ id: doc.id, ...data });
+                });
+
+                if (keyword) {
+                    const lowerKeyword = keyword.toLowerCase();
+                    menuList = menuList.filter(item => 
+                        item.nama.toLowerCase().includes(lowerKeyword) ||
+                        item.deskripsi.toLowerCase().includes(lowerKeyword) ||
+                        item.kategori.toLowerCase().includes(lowerKeyword) ||
+                        item.vendor.toLowerCase().includes(lowerKeyword)
+                    );
+                }
+
+                return menuList;
+            } catch (e) {
+                console.error("Error:", e);
+                return [];
+            }
+        }
+
+        function clearRoom() {
+            if (inactivityTimer) {
+                clearTimeout(inactivityTimer);
+                inactivityTimer = null;
+            }
+        }
+
+        window.kirimPesanKeDB = kirimPesanKeDB;
+        window.listenChat = listenChat;
+        window.simpanMenuKeDatabase = simpanMenuKeDatabase;
+        window.updateMenuDiDatabase = updateMenuDiDatabase;
+        window.hapusMenuDariDatabase = hapusMenuDariDatabase;
+        window.ambilMenuVendor = ambilMenuVendor;
+        window.cariMenuDariDatabase = cariMenuDariDatabase;
+        window.clearRoom = clearRoom;
+        window.updateActivity = updateActivity;
+        window.cleanupOldMessages = cleanupOldMessages;
+        window.hapusSemuaPesanChat = hapusSemuaPesanChat;
+        window.tambahVendorBaru = tambahVendorBaru;
+        window.ambilSemuaVendor = ambilSemuaVendor;
+        window.hapusVendor = hapusVendor;
+        window.cekKredensialVendor = cekKredensialVendor;
+        window.ADMIN_PASSWORD = ADMIN_PASSWORD;
+        window.GLOBAL_ROOM_ID = GLOBAL_ROOM_ID;
+    </script>
+</head>
+<body>
+    <div class="container">
+        <!-- Mode Selection -->
+        <div id="modeSelection">
+            <h1>🍽️ FoodFinder</h1>
+            <p class="subtitle">Premium Chat Platform for Fine Dining Experience</p>
+            <div class="mode-buttons">
+                <button class="mode-btn customer" onclick="masukSebagaiCustomer()">
+                    <span>👤</span>
+                    <div class="btn-label">Customer</div>
+                </button>
+                <button class="mode-btn vendor" onclick="tampilkanVendorLogin()">
+                    <span>🏪</span>
+                    <div class="btn-label">Vendor Login</div>
+                </button>
+                <button class="mode-btn admin" onclick="tampilkanAdminPanel()">
+                    <span>⚙️</span>
+                    <div class="btn-label">Admin Panel</div>
+                </button>
+            </div>
+        </div>
+
+        <!-- Vendor Login -->
+        <div id="vendorLogin">
+            <h2>Vendor Login</h2>
+            <p class="subtitle">Please enter your credentials to access vendor panel</p>
+            
+            <!-- INFO KREDENSIAL -->
+           <!-- <div style="background: #f0f9ff; border: 1px solid #bfdbfe; border-radius: 12px; padding: 15px; margin-bottom: 20px;">
+                <div style="font-size: 12px; color: #1e40af; font-weight: 600; margin-bottom: 8px;">📋 Vendor Credentials Info:</div>
+                <div style="font-size: 11px; color: #1e3a8a; line-height: 1.6;">
+                    <strong>Warung Bu Siti:</strong> busiti / siti123<br>
+                    <strong>Kedai Kopi Mas Budi:</strong> masbudi / budi123<br>
+                    <strong>Dapur Mama Lina:</strong> mamalina / lina123<br>
+                    <strong>Bakery Pak Amir:</strong> pakamir / amir123
+                </div>
+            </div>-->
+
+            <div class="login-form">
+                <div id="loginError" style="display: none;" class="error-message"></div>
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" id="vendorUsername" placeholder="Enter your username">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="vendorPassword" placeholder="Enter your password">
+                </div>
+                <button class="login-btn" onclick="loginVendor()">Login</button>
+            </div>
+            <button class="back-to-mode" onclick="kembaliKeMode()">← Back to Menu</button>
+        </div>
+
+        <!-- Admin Panel -->
+        <div id="adminPanel">
+            <h2>⚙️ Admin Panel</h2>
+            
+            <div class="admin-section">
+                <h3>Add New Vendor</h3>
+                <div id="adminError" style="display: none;" class="error-message"></div>
+                <div id="adminSuccess" style="display: none;" class="success-message"></div>
+                <form id="addVendorForm">
+                    <div class="form-group">
+                        <label>Vendor Name</label>
+                        <input type="text" id="newVendorName" placeholder="e.g., Le Gourmet Restaurant" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Emoji Icon</label>
+                        <select id="newVendorEmoji" required>
+                            <option value="" disabled selected>Select an icon</option>
+                            <option value="🍽️">🍽️ Restaurant</option>
+                            <option value="🍜">🍜 Noodles</option>
+                            <option value="☕">☕ Coffee</option>
+                            <option value="🍛">🍛 Curry</option>
+                            <option value="🥐">🥐 Bakery</option>
+                            <option value="🍕">🍕 Pizza</option>
+                            <option value="🍔">🍔 Burger</option>
+                            <option value="🍣">🍣 Sushi</option>
+                            <option value="🥗">🥗 Salad</option>
+                            <option value="🍰">🍰 Dessert</option>
+                            <option value="🥤">🥤 Drink</option>
+                            <option value="🍱">🍱 Bento</option>
+                            <option value="🌮">🌮 Taco</option>
+                            <option value="🍝">🍝 Pasta</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" id="newVendorUsername" placeholder="e.g., legourmet" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="newVendorPassword" placeholder="Create a secure password" required>
+                    </div>
+                    <button type="submit" class="login-btn">Add Vendor</button>
+                </form>
+            </div>
+
+            <div class="admin-section">
+                <h3>Registered Vendors</h3>
+                <div id="vendorListAdmin" class="vendor-list-admin">
+                    <div style="text-align: center; padding: 20px; color: #999;">Loading vendors...</div>
+                </div>
+            </div>
+
+            <button class="back-to-mode" onclick="kembaliKeMode()">← Back to Menu</button>
+        </div>
+
+        <!-- Chat Container -->
+        <div id="chatContainer">
+            <div class="chat-header" id="chatHeader">
+                <div class="header-info">
+                    <h2 id="headerTitle">FoodFinder Chat</h2>
+                    <p id="headerSubtitle">Online</p>
+                </div>
+                <button class="back-btn" onclick="kembaliKeMode()">← Logout</button>
+            </div>
+
+            <div id="chatlog"></div>
+
+            <div class="input-area">
+                <input type="text" id="userInput" placeholder="Type your message...">
+                <button id="sendBtn" onclick="kirimPesan()">➤</button>
+            </div>
+
+            <div class="vendor-actions" id="vendorActions" style="display: none;">
+                <button id="manageMenuBtn" onclick="bukaManagementPanel()">📋 Manage Menu</button>
+                <button id="showMenuBtn" onclick="bukaShowMenuModal()">📤 Show Menu</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Management Panel -->
+    <div id="managementModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>📋 My Menu Management</h3>
+                <button class="close-modal" onclick="tutupManagementPanel()">✕ Close</button>
+            </div>
+            <div class="modal-body">
+                <div style="margin-bottom: 20px;">
+                    <button onclick="bukaFormTambahMenu()" class="login-btn" style="width: 100%;">
+                        ➕ Add New Menu Item
+                    </button>
+                </div>
+
+                <h4 style="color: var(--primary-dark); margin-bottom: 15px; font-family: 'Playfair Display', serif; font-size: 20px;">My Menu Items</h4>
+                <div id="menuListContainer" class="menu-list">
+                    <!-- Menu akan dimuat di sini -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Add/Edit Menu Form -->
+    <div id="menuFormModal" class="modal">
+        <div class="modal-content" style="max-width: 500px;">
+            <div class="modal-header">
+                <h3 id="formTitle">➕ Add New Menu</h3>
+                <button class="close-modal" onclick="tutupFormMenu()">✕</button>
+            </div>
+            <div class="modal-body">
+                <form id="menuForm">
+                    <input type="hidden" id="editMenuId">
+                    <div class="form-group">
+                        <label>Menu Name</label>
+                        <input type="text" id="namaMenu" placeholder="e.g., Wagyu Steak Medium Rare" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Category</label>
+                        <select id="kategoriMenu" required>
+                            <option value="makanan">🍛 Main Course</option>
+                            <option value="minuman">🥤 Beverages</option>
+                            <option value="snack">🍿 Appetizers</option>
+                            <option value="dessert">🍰 Desserts</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Price (Rp)</label>
+                        <input type="number" id="hargaMenu" placeholder="250000" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea id="deskripsiMenu" rows="3" placeholder="Describe your menu item..." required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Image URL</label>
+                        <input type="url" id="gambarMenu" placeholder="https://..." required>
+                    </div>
+                    <div class="form-group">
+                        <label>Variant Options (optional)</label>
+                        <div id="opsiContainer" class="option-inputs">
+                            <div class="option-input-row">
+                                <input type="text" class="opsi-input" placeholder="e.g., Spicy">
+                                <button type="button" class="remove-option-btn" onclick="hapusOpsi(this)" style="display:none;">✕</button>
+                            </div>
+                        </div>
+                        <button type="button" class="add-option-btn" onclick="tambahInputOpsi()">+ Add Option</button>
+                    </div>
+
+                    <div class="modal-buttons">
+                        <button type="button" class="cancel-btn" onclick="tutupFormMenu()">Cancel</button>
+                        <button type="submit" class="submit-btn">Save Menu</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Show Menu -->
+    <div id="showMenuModal" class="modal">
+        <div class="modal-content" style="max-width: 550px;">
+            <div class="modal-header">
+                <h3>📤 Select Menu to Display</h3>
+                <button class="close-modal" onclick="tutupShowMenuModal()">✕</button>
+            </div>
+            <div class="modal-body">
+                <p style="color: var(--gray-dark); margin-bottom: 15px; font-size: 13px;">Choose a menu item to display to customers in the chat</p>
+                <div id="showMenuListContainer" class="show-menu-list">
+                    <!-- Menu akan dimuat di sini -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentMode = null;
+        let vendorName = null;
+        let vendorEmoji = null;
+        let unsubscribeChat = null;
+        let currentEditMenuId = null;
+
+        const chatlog = document.getElementById('chatlog');
+        const userInput = document.getElementById('userInput');
+        const chatContainer = document.getElementById('chatContainer');
+        const modeSelection = document.getElementById('modeSelection');
+        const vendorLogin = document.getElementById('vendorLogin');
+        const adminPanel = document.getElementById('adminPanel');
+        const chatHeader = document.getElementById('chatHeader');
+        const headerTitle = document.getElementById('headerTitle');
+        const headerSubtitle = document.getElementById('headerSubtitle');
+        const vendorActions = document.getElementById('vendorActions');
+
+        function tambahInputOpsi() {
+            const container = document.getElementById('opsiContainer');
+            const newRow = document.createElement('div');
+            newRow.className = 'option-input-row';
+            newRow.innerHTML = `
+                <input type="text" class="opsi-input" placeholder="e.g., Spicy">
+                <button type="button" class="remove-option-btn" onclick="hapusOpsi(this)" style="display:none;">✕</button>
+            `;
+            container.appendChild(newRow);
+        }
+
+        function hapusOpsi(btn) {
+            btn.parentElement.remove();
+        }
+
+        function masukSebagaiCustomer() {
+            currentMode = 'customer';
+            vendorName = null;
+            modeSelection.style.display = 'none';
+            chatContainer.style.display = 'flex';
+            
+            headerTitle.textContent = '🍽️ FoodFinder Chat';
+            headerSubtitle.textContent = 'Connected with all vendors';
+            chatHeader.classList.remove('vendor-mode');
+            vendorActions.style.display = 'none';
+
+            mulaiChat();
+        }
+
+        function tampilkanVendorLogin() {
+            modeSelection.style.display = 'none';
+            vendorLogin.style.display = 'block';
+            document.getElementById('loginError').style.display = 'none';
+        }
+
+        async function loginVendor() {
+            const username = document.getElementById('vendorUsername').value.trim();
+            const password = document.getElementById('vendorPassword').value.trim();
+            const errorDiv = document.getElementById('loginError');
+
+            if (!username || !password) {
+                errorDiv.textContent = 'Please enter both username and password';
+                errorDiv.style.display = 'block';
+                return;
+            }
+
+            const vendor = await window.cekKredensialVendor(username, password);
+
+            if (vendor) {
+                currentMode = 'vendor';
+                vendorName = vendor.nama;
+                vendorEmoji = vendor.emoji;
+                vendorLogin.style.display = 'none';
+                chatContainer.style.display = 'flex';
+                
+                headerTitle.textContent = `${vendor.emoji} ${vendor.nama}`;
+                headerSubtitle.textContent = 'Vendor Mode - Connected with customers';
+                chatHeader.classList.add('vendor-mode');
+                vendorActions.style.display = 'flex';
+
+                mulaiChat();
+            } else {
+                errorDiv.textContent = 'Invalid username or password';
+                errorDiv.style.display = 'block';
+            }
+        }
+
+        function tampilkanAdminPanel() {
+            const password = prompt('Enter admin password:');
+            if (password === window.ADMIN_PASSWORD) {
+                modeSelection.style.display = 'none';
+                adminPanel.style.display = 'block';
+                muatVendorListAdmin();
+            } else {
+                alert('Invalid admin password!');
+            }
+        }
+
+        async function muatVendorListAdmin() {
+            const container = document.getElementById('vendorListAdmin');
+            container.innerHTML = '<div style="text-align: center; padding: 20px; color: #999;">Loading vendors...</div>';
+
+            const vendors = await window.ambilSemuaVendor();
+
+            if (vendors.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📭</div>
+                        <p>No vendors registered yet. Add your first vendor above!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = '';
+            vendors.forEach(vendor => {
+                const vendorDiv = document.createElement('div');
+                vendorDiv.className = 'vendor-item-admin';
+                vendorDiv.innerHTML = `
+                    <div class="vendor-item-info">
+                        <h4>${vendor.emoji} ${vendor.nama}</h4>
+                        <p>Username: ${vendor.username}</p>
+                    </div>
+                    <button class="delete-vendor-btn" onclick="hapusVendorAdmin('${vendor.id}', '${vendor.nama}')">Delete</button>
+                `;
+                container.appendChild(vendorDiv);
+            });
+        }
+
+        document.getElementById('addVendorForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const errorDiv = document.getElementById('adminError');
+            const successDiv = document.getElementById('adminSuccess');
+            errorDiv.style.display = 'none';
+            successDiv.style.display = 'none';
+
+            const nama = document.getElementById('newVendorName').value.trim();
+            const emoji = document.getElementById('newVendorEmoji').value.trim();
+            const username = document.getElementById('newVendorUsername').value.trim();
+            const password = document.getElementById('newVendorPassword').value.trim();
+
+            const success = await window.tambahVendorBaru(nama, emoji, username, password);
+
+            if (success) {
+                successDiv.textContent = `Vendor "${nama}" successfully added!`;
+                successDiv.style.display = 'block';
+                this.reset();
+                await muatVendorListAdmin();
+            } else {
+                errorDiv.textContent = 'Failed to add vendor. Please try again.';
+                errorDiv.style.display = 'block';
+            }
+        });
+
+        async function hapusVendorAdmin(vendorId, vendorName) {
+            if (confirm(`Are you sure you want to delete vendor "${vendorName}"?`)) {
+                const success = await window.hapusVendor(vendorId);
+                if (success) {
+                    alert('Vendor successfully deleted!');
+                    await muatVendorListAdmin();
+                } else {
+                    alert('Failed to delete vendor.');
+                }
+            }
+        }
+
+        async function kembaliKeMode() {
+            if (unsubscribeChat) {
+                unsubscribeChat();
+                unsubscribeChat = null;
+            }
+            
+            window.clearRoom();
+            
+            console.log("🧹 Deleting all chat messages...");
+            await window.hapusSemuaPesanChat();
+            
+            chatContainer.style.display = 'none';
+            vendorLogin.style.display = 'none';
+            adminPanel.style.display = 'none';
+            modeSelection.style.display = 'block';
+            chatlog.innerHTML = '';
+            currentMode = null;
+            vendorName = null;
+            
+            // Reset form
+            document.getElementById('vendorUsername').value = '';
+            document.getElementById('vendorPassword').value = '';
+            
+            console.log("✅ Logout successful - Chat cleared!");
+        }
+
+        function mulaiChat() {
+            chatlog.innerHTML = '';
+            
+            const systemMsg = document.createElement('div');
+            systemMsg.className = 'system-message';
+            
+            if (currentMode === 'customer') {
+                systemMsg.innerHTML = '🔔 You are connected with all vendors.<br><small>Chat will auto-clear after 5 minutes of inactivity.</small>';
+            } else {
+                systemMsg.textContent = `🔔 Welcome ${vendorName}! You can view customer inquiries and display your menu.`;
+            }
+            
+            chatlog.appendChild(systemMsg);
+
+            unsubscribeChat = window.listenChat((messages) => {
+                renderChat(messages);
+            });
+        }
+
+        function renderChat(messages) {
+            const isScrolledToBottom = chatlog.scrollHeight - chatlog.clientHeight <= chatlog.scrollTop + 1;
+            
+            const systemMessages = chatlog.querySelectorAll('.system-message');
+            chatlog.innerHTML = '';
+            systemMessages.forEach(msg => chatlog.appendChild(msg));
+
+            messages.forEach(msg => {
+                if (currentMode === 'customer') {
+                    if (msg.tipe === 'text') {
+                        tambahPesanText(msg.pengirim, msg.isi, false);
+                    } else if (msg.tipe === 'menu') {
+                        tambahPesanMenu(msg.pengirim, msg.menuData, false);
+                    }
+                }
+                else if (currentMode === 'vendor') {
+                    if (msg.pengirim === 'Customer' && !msg.targetVendor) {
+                        if (msg.tipe === 'text') {
+                            tambahPesanText(msg.pengirim, msg.isi, false);
+                        }
+                    }
+                    else if (msg.pengirim === 'Customer' && msg.targetVendor === vendorName) {
+                        if (msg.tipe === 'text') {
+                            tambahPesanText(msg.pengirim + ' 🔒', msg.isi, false);
+                        }
+                    }
+                    else if (msg.pengirim === vendorName) {
+                        if (msg.tipe === 'text') {
+                            tambahPesanText(msg.pengirim, msg.isi, false);
+                        } else if (msg.tipe === 'menu') {
+                            tambahPesanMenu(msg.pengirim, msg.menuData, false);
+                        }
+                    }
+                }
+            });
+
+            if (isScrolledToBottom) {
+                chatlog.scrollTop = chatlog.scrollHeight;
+            }
+        }
+
+        function tambahPesanText(pengirim, teks, autoScroll = true) {
+            const messageDiv = document.createElement('div');
+            
+            const isCustomer = pengirim === 'Customer' || pengirim.includes('Customer');
+            messageDiv.className = `message ${isCustomer ? 'customer' : 'vendor'}`;
+
+            const header = document.createElement('div');
+            header.className = 'message-header';
+            header.textContent = pengirim;
+
+            const bubble = document.createElement('div');
+            bubble.className = 'message-bubble';
+            bubble.textContent = teks;
+
+            const time = document.createElement('div');
+            time.className = 'message-time';
+            time.textContent = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+
+            messageDiv.appendChild(header);
+            messageDiv.appendChild(bubble);
+            bubble.appendChild(time);
+            
+            chatlog.appendChild(messageDiv);
+            
+            if (autoScroll) {
+                chatlog.scrollTop = chatlog.scrollHeight;
+            }
+        }
+
+        function tambahPesanMenu(pengirim, menuData, autoScroll = true) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message vendor';
+
+            const header = document.createElement('div');
+            header.className = 'message-header';
+            header.textContent = pengirim;
+
+            const bubble = document.createElement('div');
+            bubble.className = 'message-bubble';
+
+            const menuOffer = document.createElement('div');
+            menuOffer.className = 'menu-offer';
+            
+            let opsiHTML = '';
+            if (menuData.opsiVarian && menuData.opsiVarian.length > 0 && currentMode === 'customer') {
+                opsiHTML = '<div class="menu-options">';
+                menuData.opsiVarian.forEach((opsi, idx) => {
+                    opsiHTML += `<button class="menu-option-btn" data-opsi="${opsi}" onclick="pilihOpsi(this, '${menuData.nama}', '${pengirim}')">${opsi}</button>`;
+                });
+                opsiHTML += '</div>';
+            }
+            
+            menuOffer.innerHTML = `
+                <img src="${menuData.gambar}" alt="${menuData.nama}">
+                <div class="menu-offer-info">
+                    <h4>${menuData.nama}</h4>
+                    <div class="price">Rp ${Number(menuData.harga).toLocaleString('id-ID')}</div>
+                    <div class="description">${menuData.deskripsi}</div>
+                    ${opsiHTML}
+                    ${currentMode === 'customer' ? '<button class="order-btn" data-vendor="' + pengirim + '" data-menu="' + menuData.nama + '" ' + (menuData.opsiVarian && menuData.opsiVarian.length > 0 ? 'disabled' : '') + '>💬 Order Now</button>' : ''}
+                </div>
+            `;
+
+            if (currentMode === 'customer') {
+                const orderBtn = menuOffer.querySelector('.order-btn');
+                if (orderBtn) {
+                    orderBtn.onclick = function() {
+                        const vendorName = this.getAttribute('data-vendor');
+                        const menuName = this.getAttribute('data-menu');
+                        const selectedOpsi = this.getAttribute('data-selected-opsi') || '';
+                        pesanMenu(menuName, vendorName, selectedOpsi);
+                    };
+                }
+            }
+
+            bubble.appendChild(menuOffer);
+
+            const time = document.createElement('div');
+            time.className = 'message-time';
+            time.textContent = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+
+            messageDiv.appendChild(header);
+            messageDiv.appendChild(bubble);
+            bubble.appendChild(time);
+            
+            chatlog.appendChild(messageDiv);
+            
+            if (autoScroll) {
+                chatlog.scrollTop = chatlog.scrollHeight;
+            }
+        }
+
+        function pilihOpsi(btn, menuName, vendorName) {
+            const parent = btn.closest('.menu-offer-info');
+            const allOptions = parent.querySelectorAll('.menu-option-btn');
+            allOptions.forEach(opt => opt.classList.remove('selected'));
+            
+            btn.classList.add
+
+            if (currentMode === 'customer') {
+                const orderBtn = menuOffer.querySelector('.order-btn');
+                if (orderBtn) {
+                    orderBtn.onclick = function() {
+                        const vendorName = this.getAttribute('data-vendor');
+                        const menuName = this.getAttribute('data-menu');
+                        const selectedOpsi = this.getAttribute('data-selected-opsi') || '';
+                        pesanMenu(menuName, vendorName, selectedOpsi);
+                    };
+                }
+            }
+
+            bubble.appendChild(menuOffer);
+
+            const time = document.createElement('div');
+            time.className = 'message-time';
+            time.textContent = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+
+            messageDiv.appendChild(header);
+            messageDiv.appendChild(bubble);
+            bubble.appendChild(time);
+            
+            chatlog.appendChild(messageDiv);
+            
+            if (autoScroll) {
+                chatlog.scrollTop = chatlog.scrollHeight;
+            }
+        }
+
+        function pilihOpsi(btn, menuName, vendorName) {
+            const parent = btn.closest('.menu-offer-info');
+            const allOptions = parent.querySelectorAll('.menu-option-btn');
+            allOptions.forEach(opt => opt.classList.remove('selected'));
+            
+            btn.classList.add('selected');
+            
+            const orderBtn = parent.querySelector('.order-btn');
+            orderBtn.disabled = false;
+            orderBtn.setAttribute('data-selected-opsi', btn.getAttribute('data-opsi'));
+        }
+
+        async function kirimPesan() {
+            const text = userInput.value.trim();
+            if (!text) return;
+
+            const pengirim = currentMode === 'customer' ? 'Customer' : vendorName;
+            
+            tambahPesanText(pengirim, text);
+            userInput.value = '';
+
+            await window.kirimPesanKeDB(pengirim, 'text', text, null, null);
+
+            if (currentMode === 'customer') {
+                const lowerText = text.toLowerCase();
+                const searchKeywords = ['cari', 'ada', 'mau', 'pengen', 'pesen', 'pesan', 'menu', 'lihat', 'tampil', 'search', 'find', 'looking'];
+                const isSearching = searchKeywords.some(keyword => lowerText.includes(keyword));
+
+                if (isSearching) {
+                    setTimeout(async () => {
+                        let keyword = text;
+                        ['cari', 'cariin', 'ada', 'mau', 'pengen', 'pesen', 'pesan', 'dong', 'menu', 'lihat', 'tampil', 'tampilkan', 'search', 'find', 'looking'].forEach(word => {
+                            keyword = keyword.replace(new RegExp(word, 'gi'), '').trim();
+                        });
+
+                        const hasilMenu = await window.cariMenuDariDatabase(keyword);
+
+                        if (hasilMenu.length > 0) {
+                            tambahPesanText('🤖 FoodFinder Bot', `I found ${hasilMenu.length} matching menu items:`, true);
+                            
+                            setTimeout(() => {
+                                hasilMenu.forEach((menu, index) => {
+                                    setTimeout(() => {
+                                        tambahPesanMenu(menu.vendor, menu, true);
+                                    }, index * 300);
+                                });
+                            }, 500);
+                        } else if (keyword.length > 2) {
+                            setTimeout(() => {
+                                tambahPesanText('🤖 FoodFinder Bot', `Sorry, I couldn't find any menu with keyword "${keyword}". Try different keywords or wait for vendor response!`, true);
+                            }, 800);
+                        }
+                    }, 1000);
+                }
+            }
+        }
+
+        userInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') kirimPesan();
+        });
+
+        userInput.addEventListener('input', () => {
+            window.updateActivity();
+        });
+
+        // VENDOR MENU MANAGEMENT
+        async function bukaManagementPanel() {
+            document.getElementById('managementModal').style.display = 'block';
+            await muatMenuVendor();
+        }
+
+        function tutupManagementPanel() {
+            document.getElementById('managementModal').style.display = 'none';
+        }
+
+        async function muatMenuVendor() {
+            const container = document.getElementById('menuListContainer');
+            container.innerHTML = '<div style="text-align: center; padding: 20px; color: #999;">Loading menu...</div>';
+
+            const menuList = await window.ambilMenuVendor(vendorName);
+
+            if (menuList.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📭</div>
+                        <p>No menu items yet. Click the button above to add your first menu!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = '';
+            menuList.forEach(menu => {
+                const menuCard = document.createElement('div');
+                menuCard.className = 'menu-item-card';
+                
+                const variantsText = menu.opsiVarian && menu.opsiVarian.length > 0 
+                    ? `Variants: ${menu.opsiVarian.join(', ')}` 
+                    : 'No variants';
+
+                menuCard.innerHTML = `
+                    <img src="${menu.gambar}" class="menu-item-img" alt="${menu.nama}">
+                    <div class="menu-item-info">
+                        <h5>${menu.nama}</h5>
+                        <div class="menu-price">Rp ${Number(menu.harga).toLocaleString('id-ID')}</div>
+                        <div class="menu-desc">${menu.deskripsi}</div>
+                        <div class="menu-item-variants">${variantsText}</div>
+                    </div>
+                    <div class="menu-item-actions">
+                        <button class="edit-menu-btn" onclick="bukaFormEditMenu('${menu.id}')">✏️ Edit</button>
+                        <button class="delete-menu-btn" onclick="konfirmasiHapusMenu('${menu.id}', '${menu.nama}')">🗑️ Delete</button>
+                    </div>
+                `;
+                container.appendChild(menuCard);
+            });
+        }
+
+        function bukaFormTambahMenu() {
+            currentEditMenuId = null;
+            document.getElementById('formTitle').textContent = '➕ Add New Menu';
+            document.getElementById('menuForm').reset();
+            
+            const container = document.getElementById('opsiContainer');
+            container.innerHTML = `
+                <div class="option-input-row">
+                    <input type="text" class="opsi-input" placeholder="e.g., Spicy">
+                    <button type="button" class="remove-option-btn" onclick="hapusOpsi(this)" style="display:none;">✕</button>
+                </div>
+            `;
+            
+            document.getElementById('menuFormModal').style.display = 'block';
+        }
+
+        async function bukaFormEditMenu(menuId) {
+            currentEditMenuId = menuId;
+            document.getElementById('formTitle').textContent = '✏️ Edit Menu';
+
+            const menuList = await window.ambilMenuVendor(vendorName);
+            const menu = menuList.find(m => m.id === menuId);
+
+            if (menu) {
+                document.getElementById('namaMenu').value = menu.nama;
+                document.getElementById('kategoriMenu').value = menu.kategori;
+                document.getElementById('hargaMenu').value = menu.harga;
+                document.getElementById('deskripsiMenu').value = menu.deskripsi;
+                document.getElementById('gambarMenu').value = menu.gambar;
+
+                const container = document.getElementById('opsiContainer');
+                container.innerHTML = '';
+                
+                if (menu.opsiVarian && menu.opsiVarian.length > 0) {
+                    menu.opsiVarian.forEach((opsi, idx) => {
+                        const row = document.createElement('div');
+                        row.className = 'option-input-row';
+                        row.innerHTML = `
+                            <input type="text" class="opsi-input" value="${opsi}">
+                            <button type="button" class="remove-option-btn" onclick="hapusOpsi(this)" ${idx === 0 ? 'style="display:none;"' : ''}>✕</button>
+                        `;
+                        container.appendChild(row);
+                    });
+                } else {
+                    container.innerHTML = `
+                        <div class="option-input-row">
+                            <input type="text" class="opsi-input" placeholder="e.g., Spicy">
+                            <button type="button" class="remove-option-btn" onclick="hapusOpsi(this)" style="display:none;">✕</button>
+                        </div>
+                    `;
+                }
+
+                document.getElementById('menuFormModal').style.display = 'block';
+            }
+        }
+
+        function tutupFormMenu() {
+            document.getElementById('menuFormModal').style.display = 'none';
+            currentEditMenuId = null;
+        }
+
+        document.getElementById('menuForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const opsiInputs = document.querySelectorAll('.opsi-input');
+            const opsiVarian = [];
+            opsiInputs.forEach(input => {
+                if (input.value.trim()) {
+                    opsiVarian.push(input.value.trim());
+                }
+            });
+
+            const menuData = {
+                nama: document.getElementById('namaMenu').value,
+                harga: Number(document.getElementById('hargaMenu').value),
+                deskripsi: document.getElementById('deskripsiMenu').value,
+                gambar: document.getElementById('gambarMenu').value,
+                kategori: document.getElementById('kategoriMenu').value,
+                opsiVarian: opsiVarian
+            };
+
+            if (currentEditMenuId) {
+                await window.updateMenuDiDatabase(currentEditMenuId, menuData);
+                alert('Menu successfully updated!');
+            } else {
+                await window.simpanMenuKeDatabase(vendorName, menuData);
+                alert('Menu successfully added!');
+            }
+
+            tutupFormMenu();
+            await muatMenuVendor();
+        });
+
+        async function konfirmasiHapusMenu(menuId, menuName) {
+            if (confirm(`Are you sure you want to delete menu "${menuName}"?`)) {
+                await window.hapusMenuDariDatabase(menuId);
+                alert('Menu successfully deleted!');
+                await muatMenuVendor();
+            }
+        }
+
+        async function bukaShowMenuModal() {
+            document.getElementById('showMenuModal').style.display = 'block';
+            await muatMenuUntukDitampilkan();
+        }
+
+        function tutupShowMenuModal() {
+            document.getElementById('showMenuModal').style.display = 'none';
+        }
+
+        async function muatMenuUntukDitampilkan() {
+            const container = document.getElementById('showMenuListContainer');
+            container.innerHTML = '<div style="text-align: center; padding: 20px; color: #999;">Loading menu...</div>';
+
+            const menuList = await window.ambilMenuVendor(vendorName);
+
+            if (menuList.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📭</div>
+                        <p>No menu items yet. Please add menu first in "Manage Menu" panel</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = '';
+            menuList.forEach(menu => {
+                const menuItem = document.createElement('div');
+                menuItem.className = 'show-menu-item';
+                menuItem.onclick = () => tampilkanMenuKeCustomer(menu);
+                
+                menuItem.innerHTML = `
+                    <img src="${menu.gambar}" alt="${menu.nama}">
+                    <div class="show-menu-item-info">
+                        <h5>${menu.nama}</h5>
+                        <div class="price">Rp ${Number(menu.harga).toLocaleString('id-ID')}</div>
+                    </div>
+                `;
+                container.appendChild(menuItem);
+            });
+        }
+
+        async function tampilkanMenuKeCustomer(menuData) {
+            await window.kirimPesanKeDB(vendorName, 'menu', 'New menu', menuData);
+            tutupShowMenuModal();
+            alert(`Menu "${menuData.nama}" successfully displayed to customers!`);
+        }
+
+        function pesanMenu(namaMenu, vendorName, opsiTerpilih) {
+            let pesanText = `Hello, I would like to order ${namaMenu}`;
+            if (opsiTerpilih) {
+                pesanText += ` (${opsiTerpilih})`;
+            }
+            pesanText += `. How can I place the order?`;
+            
+            tambahPesanText('Customer 🔒', pesanText + ` → to ${vendorName}`, true);
+            kirimPesanPrivate(pesanText, vendorName);
+        }
+
+        async function kirimPesanPrivate(teks, targetVendor) {
+            await window.kirimPesanKeDB('Customer', 'text', teks, null, targetVendor);
+        }
+
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        }
+
+        // Digital Clock Functionality
+        function updateClock() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('id-ID', {
+                hour12: false,
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            const dateString = now.toLocaleDateString('id-ID', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            
+            document.getElementById('digitalClock').innerHTML = `
+                <div class="clock-time">${timeString}</div>
+                <div class="clock-date">${dateString}</div>
+            `;
+        }
+
+        // Update clock every second
+        setInterval(updateClock, 1000);
+        updateClock(); // Initial call
+    </script>
+
+    <!-- Digital Clock Widget -->
+    <div id="digitalClock" class="digital-clock">
+        <div class="clock-time">--:--:--</div>
+        <div class="clock-date">Loading...</div>
+    </div>
+</body>
+</html>
