@@ -89,6 +89,9 @@
         .container {
             position: relative;
             z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
         }
 
         /* Mode Selection */
@@ -545,6 +548,25 @@
             color: rgba(255,255,255,0.8);
             text-align: right;
             margin-top: 4px;
+        }
+
+        .wa-btn {
+            background: #25d366;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 8px;
+            display: inline-block;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .wa-btn:hover {
+            background: #128c7e;
         }
 
         .message.vendor .message-time {
@@ -1241,6 +1263,49 @@
                 font-size: 12px;
             }
         }
+
+        /* Responsive Design for Fixed Size */
+        @media (min-width: 769px) {
+            #modeSelection {
+                margin-top: 50px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                max-width: 100%;
+                padding: 0 10px;
+            }
+
+            #modeSelection {
+                padding: 30px 20px;
+            }
+
+            .mode-buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .mode-btn {
+                padding: 15px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #modeSelection {
+                padding: 20px 15px;
+            }
+
+            .mode-btn {
+                padding: 12px;
+                font-size: 12px;
+            }
+        }
     </style>
 
     <script type="module">
@@ -1554,13 +1619,14 @@
         });
 
         // FUNGSI VENDOR MANAGEMENT
-        async function tambahVendorBaru(namaVendor, emoji, username, password) {
+        async function tambahVendorBaru(namaVendor, emoji, username, password, whatsapp) {
             try {
                 await addDoc(collection(db, "vendor_credentials"), {
                     nama: namaVendor,
                     emoji: emoji,
                     username: username,
                     password: password,
+                    whatsapp: whatsapp,
                     timestamp: serverTimestamp()
                 });
                 return true;
@@ -1818,6 +1884,10 @@
                         <label>Password</label>
                         <input type="password" id="newVendorPassword" placeholder="Create a secure password" required>
                     </div>
+                    <div class="form-group">
+                        <label>WhatsApp Number</label>
+                        <input type="text" id="newVendorWhatsApp" placeholder="e.g., 6281234567890" required>
+                    </div>
                     <button type="submit" class="login-btn">Add Vendor</button>
                 </form>
             </div>
@@ -1953,6 +2023,7 @@
         let currentMode = null;
         let vendorName = null;
         let vendorEmoji = null;
+        let repliedMessages = new Set();
         let unsubscribeChat = null;
         let currentEditMenuId = null;
 
@@ -2088,8 +2159,9 @@
             const emoji = document.getElementById('newVendorEmoji').value.trim();
             const username = document.getElementById('newVendorUsername').value.trim();
             const password = document.getElementById('newVendorPassword').value.trim();
+            const whatsapp = document.getElementById('newVendorWhatsApp').value.trim();
 
-            const success = await window.tambahVendorBaru(nama, emoji, username, password);
+            const success = await window.tambahVendorBaru(nama, emoji, username, password, whatsapp);
 
             if (success) {
                 successDiv.textContent = `Vendor "${nama}" successfully added!`;
@@ -2183,6 +2255,15 @@
                     else if (msg.pengirim === 'Customer' && msg.targetVendor === vendorName) {
                         if (msg.tipe === 'text') {
                             tambahPesanText(msg.pengirim + ' 🔒', msg.isi, false);
+                            // Auto reply dengan link WhatsApp jika pesan mengandung kata order dan belum direply
+                            if ((msg.isi.toLowerCase().includes('order') || msg.isi.toLowerCase().includes('pesan')) && !repliedMessages.has(msg.timestampNumber)) {
+                                repliedMessages.add(msg.timestampNumber);
+                                setTimeout(async () => {
+                                    const whatsappLink = await getVendorWhatsAppLink(vendorName);
+                                    const replyText = `Terima kasih atas pesanan Anda! ${whatsappLink}`;
+                                    kirimReplyDariVendor(replyText);
+                                }, 1000);
+                            }
                         }
                     }
                     else if (msg.pengirim === vendorName) {
@@ -2212,7 +2293,18 @@
 
             const bubble = document.createElement('div');
             bubble.className = 'message-bubble';
-            bubble.textContent = teks;
+            // Jika teks mengandung link WA, buat clickable
+            if (teks.includes('https://wa.me/')) {
+                const linkMatch = teks.match(/(https:\/\/wa\.me\/\S+)/);
+                if (linkMatch) {
+                    const link = linkMatch[1];
+                    bubble.innerHTML = teks.replace(link, '<button class="wa-btn" onclick="window.open(\'' + link + '\', \'_blank\')">📱 Hubungi via WhatsApp</button>');
+                } else {
+                    bubble.textContent = teks;
+                }
+            } else {
+                bubble.textContent = teks;
+            }
 
             const time = document.createElement('div');
             time.className = 'message-time';
@@ -2607,6 +2699,23 @@
 
         async function kirimPesanPrivate(teks, targetVendor) {
             await window.kirimPesanKeDB('Customer', 'text', teks, null, targetVendor);
+        }
+
+        async function kirimReplyDariVendor(teks, targetCustomer) {
+            await window.kirimPesanKeDB(vendorName, 'text', teks, null, null);
+        }
+
+        async function getVendorWhatsAppLink(vendorName) {
+            try {
+                const vendors = await ambilSemuaVendor();
+                const vendor = vendors.find(v => v.nama === vendorName);
+                if (vendor && vendor.whatsapp) {
+                    return `https://wa.me/${vendor.whatsapp}?text=Selamat%20datang%20di%20${encodeURIComponent(vendorName)}`;
+                }
+            } catch (e) {
+                console.error("Error getting WhatsApp link:", e);
+            }
+            return 'https://wa.me/6281234567890?text=Selamat%20datang%20di%20toko%20kami';
         }
 
         window.onclick = function(event) {
