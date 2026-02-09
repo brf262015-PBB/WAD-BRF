@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,12 +8,12 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap');
 
-        * { 
-            margin: 0; 
-            padding: 0; 
-            box-sizing: border-box; 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        
+
         :root {
             --primary-gold: #D4AF37;
             --primary-dark: #1a1a1a;
@@ -23,9 +24,9 @@
             --gray-light: #f8f8f8;
             --gray-medium: #e0e0e0;
             --gray-dark: #666;
-            --shadow-sm: 0 2px 8px rgba(0,0,0,0.1);
-            --shadow-md: 0 4px 16px rgba(0,0,0,0.15);
-            --shadow-lg: 0 8px 32px rgba(0,0,0,0.2);
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.15);
+            --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.2);
         }
 
         body {
@@ -76,10 +77,13 @@
         }
 
         @keyframes particleFloat {
-            0%, 100% {
+
+            0%,
+            100% {
                 opacity: 1;
                 transform: translateY(0px);
             }
+
             50% {
                 opacity: 0.6;
                 transform: translateY(-20px);
@@ -269,7 +273,9 @@
             text-transform: uppercase;
         }
 
-        .form-group input, .form-group select, .form-group textarea {
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
             width: 100%;
             padding: 10px 14px;
             border: 2px solid var(--gray-medium);
@@ -281,7 +287,9 @@
             background: var(--white);
         }
 
-        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
             border-color: var(--primary-gold);
             box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
         }
@@ -462,8 +470,8 @@
         }
 
         .back-btn {
-            background: rgba(255,255,255,0.15);
-            border: 1px solid rgba(255,255,255,0.3);
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             color: var(--white);
             padding: 10px 18px;
             border-radius: 10px;
@@ -475,7 +483,7 @@
         }
 
         .back-btn:hover {
-            background: rgba(255,255,255,0.25);
+            background: rgba(255, 255, 255, 0.25);
             transform: translateX(-3px);
         }
 
@@ -545,7 +553,7 @@
 
         .message-time {
             font-size: 10px;
-            color: rgba(255,255,255,0.8);
+            color: rgba(255, 255, 255, 0.8);
             text-align: right;
             margin-top: 4px;
         }
@@ -748,7 +756,8 @@
             gap: 10px;
         }
 
-        #manageMenuBtn, #showMenuBtn {
+        #manageMenuBtn,
+        #showMenuBtn {
             flex: 1;
             padding: 14px;
             color: var(--white);
@@ -770,7 +779,8 @@
             background: linear-gradient(135deg, var(--accent-burgundy) 0%, #5a2529 100%);
         }
 
-        #manageMenuBtn:hover, #showMenuBtn:hover {
+        #manageMenuBtn:hover,
+        #showMenuBtn:hover {
             transform: translateY(-2px);
             box-shadow: var(--shadow-md);
         }
@@ -784,7 +794,7 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.75);
+            background-color: rgba(0, 0, 0, 0.75);
             animation: fadeIn 0.3s;
             backdrop-filter: blur(4px);
         }
@@ -822,8 +832,8 @@
         }
 
         .close-modal {
-            background: rgba(255,255,255,0.15);
-            border: 1px solid rgba(255,255,255,0.3);
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             color: var(--white);
             padding: 8px 16px;
             border-radius: 10px;
@@ -834,7 +844,7 @@
         }
 
         .close-modal:hover {
-            background: rgba(255,255,255,0.25);
+            background: rgba(255, 255, 255, 0.25);
         }
 
         .modal-body {
@@ -911,7 +921,8 @@
             justify-content: center;
         }
 
-        .edit-menu-btn, .delete-menu-btn {
+        .edit-menu-btn,
+        .delete-menu-btn {
             padding: 8px 14px;
             border: none;
             border-radius: 8px;
@@ -932,7 +943,8 @@
             color: var(--white);
         }
 
-        .edit-menu-btn:hover, .delete-menu-btn:hover {
+        .edit-menu-btn:hover,
+        .delete-menu-btn:hover {
             transform: scale(1.05);
             box-shadow: var(--shadow-sm);
         }
@@ -1084,64 +1096,72 @@
 
         /* Animations */
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
 
         @keyframes fadeInUp {
-            from { 
+            from {
                 opacity: 0;
                 transform: translateY(30px);
             }
-            to { 
+
+            to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
 
         @keyframes slideUpModal {
-            from { 
+            from {
                 opacity: 0;
                 transform: translateY(50px) scale(0.95);
             }
-            to { 
+
+            to {
                 opacity: 1;
                 transform: translateY(0) scale(1);
             }
         }
 
         @keyframes messageSlideIn {
-            from { 
+            from {
                 transform: translateY(15px);
                 opacity: 0;
             }
-            to { 
+
+            to {
                 transform: translateY(0);
                 opacity: 1;
             }
         }
 
         /* Scrollbar */
-        #chatlog::-webkit-scrollbar, 
-        .modal-body::-webkit-scrollbar, 
+        #chatlog::-webkit-scrollbar,
+        .modal-body::-webkit-scrollbar,
         #adminPanel::-webkit-scrollbar {
             width: 6px;
         }
 
-        #chatlog::-webkit-scrollbar-track, 
+        #chatlog::-webkit-scrollbar-track,
         .modal-body::-webkit-scrollbar-track,
         #adminPanel::-webkit-scrollbar-track {
             background: var(--gray-light);
         }
 
-        #chatlog::-webkit-scrollbar-thumb, 
+        #chatlog::-webkit-scrollbar-thumb,
         .modal-body::-webkit-scrollbar-thumb,
         #adminPanel::-webkit-scrollbar-thumb {
             background: var(--primary-gold);
             border-radius: 3px;
         }
 
-        #chatlog::-webkit-scrollbar-thumb:hover, 
+        #chatlog::-webkit-scrollbar-thumb:hover,
         .modal-body::-webkit-scrollbar-thumb:hover,
         #adminPanel::-webkit-scrollbar-thumb:hover {
             background: #B8941E;
@@ -1167,6 +1187,211 @@
             font-size: 13px;
             font-weight: 600;
             border-left: 4px solid #2e7d32;
+        }
+
+        /* Shopping Cart Styles */
+        .cart-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-gold) 0%, #B8941E 100%);
+            color: var(--white);
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.4);
+            transition: all 0.3s;
+            z-index: 999;
+            display: none;
+        }
+
+        .cart-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 30px rgba(212, 175, 55, 0.6);
+        }
+
+        .cart-button.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--accent-burgundy);
+            color: var(--white);
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+            border: 2px solid var(--white);
+        }
+
+        .cart-modal-body {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 12px;
+            padding: 12px;
+            background: var(--gray-light);
+            border-radius: 12px;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+
+        .cart-item-image {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .cart-item-info {
+            flex: 1;
+        }
+
+        .cart-item-name {
+            font-weight: 600;
+            color: var(--primary-dark);
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .cart-item-vendor {
+            font-size: 11px;
+            color: var(--gray-dark);
+            margin-bottom: 4px;
+        }
+
+        .cart-item-variant {
+            font-size: 11px;
+            color: var(--primary-gold);
+            font-weight: 600;
+        }
+
+        .cart-item-price {
+            font-weight: 700;
+            color: var(--primary-gold);
+            font-size: 14px;
+        }
+
+        .cart-item-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cart-qty-btn {
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            border: none;
+            background: var(--primary-gold);
+            color: var(--white);
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.3s;
+        }
+
+        .cart-qty-btn:hover {
+            background: #B8941E;
+            transform: scale(1.1);
+        }
+
+        .cart-qty {
+            font-weight: 600;
+            min-width: 30px;
+            text-align: center;
+        }
+
+        .cart-remove-btn {
+            padding: 6px 10px;
+            background: var(--accent-burgundy);
+            color: var(--white);
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .cart-remove-btn:hover {
+            background: #5a2529;
+            transform: scale(1.05);
+        }
+
+        .cart-total {
+            background: var(--light-cream);
+            padding: 16px;
+            border-radius: 12px;
+            margin-top: 16px;
+        }
+
+        .cart-total-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .cart-total-row.final {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary-dark);
+            padding-top: 8px;
+            border-top: 2px solid var(--gray-medium);
+        }
+
+        .cart-checkout-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--accent-burgundy) 0%, #5a2529 100%);
+            color: var(--white);
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-top: 16px;
+            transition: all 0.3s;
+        }
+
+        .cart-checkout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .cart-checkout-btn:disabled {
+            background: var(--gray-medium);
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .cart-empty {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--gray-dark);
+        }
+
+        .cart-empty-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+            opacity: 0.5;
         }
 
         /* Responsive */
@@ -1237,9 +1462,12 @@
         }
 
         @keyframes clockPulse {
-            0%, 100% {
+
+            0%,
+            100% {
                 box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 20px rgba(212, 175, 55, 0.2);
             }
+
             50% {
                 box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 25px rgba(212, 175, 55, 0.4);
             }
@@ -1382,7 +1610,7 @@
                 nama: "Nasi Goreng Spesial",
                 harga: 25000,
                 deskripsi: "Nasi goreng dengan telur, ayam suwir, dan kerupuk",
-                gambar: "https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=500",
+                gambar: "/Users/rivaldoharyono/Downloads/nasgor.jpeg",
                 kategori: "makanan",
                 opsiVarian: ["Pedas", "Sedang", "Tidak Pedas"]
             },
@@ -1554,7 +1782,7 @@
                     if (data.roomId === GLOBAL_ROOM_ID) {
                         const messageAge = now - (data.timestampNumber || 0);
                         const timeSinceLastActivity = now - lastActivityTime;
-                        
+
                         if (messageAge > fiveMinutes && timeSinceLastActivity > fiveMinutes) {
                             deleteDoc(doc.ref).catch(err => console.error("Delete error:", err));
                         } else {
@@ -1562,7 +1790,7 @@
                         }
                     }
                 });
-                
+
                 callback(messages);
             });
         }
@@ -1571,7 +1799,7 @@
         async function setupDefaultVendors() {
             try {
                 const existingVendors = await ambilSemuaVendor();
-                
+
                 // Jika sudah ada vendor, skip setup
                 if (existingVendors.length > 0) {
                     console.log("✅ Vendor sudah ada, skip setup");
@@ -1579,11 +1807,11 @@
                 }
 
                 console.log("🔧 Setting up default vendors...");
-                
+
                 for (const vendor of DEFAULT_VENDORS) {
                     await tambahVendorBaru(vendor.nama, vendor.emoji, vendor.username, vendor.password);
                 }
-                
+
                 console.log("✅ Default vendors created successfully!");
             } catch (e) {
                 console.error("Error setup vendors:", e);
@@ -1593,7 +1821,7 @@
         async function setupDefaultMenus() {
             try {
                 const querySnapshot = await getDocs(collection(db, "menu_database"));
-                
+
                 // Jika sudah ada menu, skip setup
                 if (querySnapshot.size > 0) {
                     console.log("✅ Menu sudah ada, skip setup");
@@ -1601,11 +1829,11 @@
                 }
 
                 console.log("🔧 Setting up default menus...");
-                
+
                 for (const menu of DEFAULT_MENUS) {
                     await simpanMenuKeDatabase(menu.vendor, menu);
                 }
-                
+
                 console.log("✅ Default menus created successfully!");
             } catch (e) {
                 console.error("Error setup menus:", e);
@@ -1682,6 +1910,7 @@
                     gambar: menuData.gambar,
                     kategori: menuData.kategori || 'makanan',
                     opsiVarian: menuData.opsiVarian || [],
+                    video: menuData.video || null,
                     timestamp: serverTimestamp(),
                     tanggal: new Date().toISOString()
                 });
@@ -1701,7 +1930,8 @@
                     deskripsi: menuData.deskripsi,
                     gambar: menuData.gambar,
                     kategori: menuData.kategori,
-                    opsiVarian: menuData.opsiVarian || []
+                    opsiVarian: menuData.opsiVarian || [],
+                    video: menuData.video || null
                 });
                 return true;
             } catch (e) {
@@ -1749,7 +1979,7 @@
 
                 if (keyword) {
                     const lowerKeyword = keyword.toLowerCase();
-                    menuList = menuList.filter(item => 
+                    menuList = menuList.filter(item =>
                         item.nama.toLowerCase().includes(lowerKeyword) ||
                         item.deskripsi.toLowerCase().includes(lowerKeyword) ||
                         item.kategori.toLowerCase().includes(lowerKeyword) ||
@@ -1790,6 +2020,7 @@
         window.GLOBAL_ROOM_ID = GLOBAL_ROOM_ID;
     </script>
 </head>
+
 <body>
     <div class="container">
         <!-- Mode Selection -->
@@ -1816,9 +2047,9 @@
         <div id="vendorLogin">
             <h2>Vendor Login</h2>
             <p class="subtitle">Please enter your credentials to access vendor panel</p>
-            
+
             <!-- INFO KREDENSIAL -->
-           <!-- <div style="background: #f0f9ff; border: 1px solid #bfdbfe; border-radius: 12px; padding: 15px; margin-bottom: 20px;">
+            <!-- <div style="background: #f0f9ff; border: 1px solid #bfdbfe; border-radius: 12px; padding: 15px; margin-bottom: 20px;">
                 <div style="font-size: 12px; color: #1e40af; font-weight: 600; margin-bottom: 8px;">📋 Vendor Credentials Info:</div>
                 <div style="font-size: 11px; color: #1e3a8a; line-height: 1.6;">
                     <strong>Warung Bu Siti:</strong> busiti / siti123<br>
@@ -1846,7 +2077,7 @@
         <!-- Admin Panel -->
         <div id="adminPanel">
             <h2>⚙️ Admin Panel</h2>
-            
+
             <div class="admin-section">
                 <h3>Add New Vendor</h3>
                 <div id="adminError" style="display: none;" class="error-message"></div>
@@ -1922,6 +2153,7 @@
             <div class="vendor-actions" id="vendorActions" style="display: none;">
                 <button id="manageMenuBtn" onclick="bukaManagementPanel()">📋 Manage Menu</button>
                 <button id="showMenuBtn" onclick="bukaShowMenuModal()">📤 Show Menu</button>
+                <button id="viewCartsBtn" onclick="viewCustomerCarts()">📊 View Carts</button>
             </div>
         </div>
     </div>
@@ -1940,7 +2172,9 @@
                     </button>
                 </div>
 
-                <h4 style="color: var(--primary-dark); margin-bottom: 15px; font-family: 'Playfair Display', serif; font-size: 20px;">My Menu Items</h4>
+                <h4
+                    style="color: var(--primary-dark); margin-bottom: 15px; font-family: 'Playfair Display', serif; font-size: 20px;">
+                    My Menu Items</h4>
                 <div id="menuListContainer" class="menu-list">
                     <!-- Menu akan dimuat di sini -->
                 </div>
@@ -1977,18 +2211,50 @@
                     </div>
                     <div class="form-group">
                         <label>Description</label>
-                        <textarea id="deskripsiMenu" rows="3" placeholder="Describe your menu item..." required></textarea>
+                        <textarea id="deskripsiMenu" rows="3" placeholder="Describe your menu item..."
+                            required></textarea>
                     </div>
                     <div class="form-group">
-                        <label>Image URL</label>
-                        <input type="url" id="gambarMenu" placeholder="https://..." required>
+                        <label>Image</label>
+                        <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                            <button type="button" class="add-option-btn"
+                                onclick="document.getElementById('uploadGambar').click()" style="flex: 1;">
+                                📁 Upload Image
+                            </button>
+                            <button type="button" class="add-option-btn" onclick="toggleImageUrlInput()"
+                                style="flex: 1;">
+                                🔗 Use URL
+                            </button>
+                        </div>
+                        <input type="file" id="uploadGambar" accept="image/*" style="display: none;"
+                            onchange="handleImageUpload(this)">
+                        <input type="url" id="gambarMenu" placeholder="https://..." style="display: none;">
+                        <div id="imagePreview" style="margin-top: 10px; display: none;">
+                            <img id="previewImg"
+                                style="max-width: 100%; max-height: 200px; border-radius: 12px; object-fit: cover;">
+                            <button type="button" onclick="clearImagePreview()"
+                                style="margin-top: 8px; padding: 6px 12px; background: var(--accent-burgundy); color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 11px;">✕
+                                Remove</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Video URL (optional)</label>
+                        <input type="url" id="videoMenu"
+                            placeholder="https://www.youtube.com/watch?v=... or direct video URL">
+                        <div id="videoPreview" style="margin-top: 10px; display: none;">
+                            <video id="previewVideo" controls
+                                style="max-width: 100%; max-height: 200px; border-radius: 12px;">
+                                <source id="videoSource" type="video/mp4">
+                            </video>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label>Variant Options (optional)</label>
                         <div id="opsiContainer" class="option-inputs">
                             <div class="option-input-row">
                                 <input type="text" class="opsi-input" placeholder="e.g., Spicy">
-                                <button type="button" class="remove-option-btn" onclick="hapusOpsi(this)" style="display:none;">✕</button>
+                                <button type="button" class="remove-option-btn" onclick="hapusOpsi(this)"
+                                    style="display:none;">✕</button>
                             </div>
                         </div>
                         <button type="button" class="add-option-btn" onclick="tambahInputOpsi()">+ Add Option</button>
@@ -2011,9 +2277,61 @@
                 <button class="close-modal" onclick="tutupShowMenuModal()">✕</button>
             </div>
             <div class="modal-body">
-                <p style="color: var(--gray-dark); margin-bottom: 15px; font-size: 13px;">Choose a menu item to display to customers in the chat</p>
+                <p style="color: var(--gray-dark); margin-bottom: 15px; font-size: 13px;">Choose a menu item to display
+                    to customers in the chat</p>
                 <div id="showMenuListContainer" class="show-menu-list">
                     <!-- Menu akan dimuat di sini -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Shopping Cart Button -->
+    <button id="cartButton" class="cart-button" onclick="openCartModal()">
+        🛒
+        <span id="cartBadge" class="cart-badge" style="display: none;">0</span>
+    </button>
+
+    <!-- Shopping Cart Modal -->
+    <div id="cartModal" class="modal">
+        <div class="modal-content" style="max-width: 550px;">
+            <div class="modal-header">
+                <h3>🛒 Shopping Cart</h3>
+                <button class="close-modal" onclick="closeCartModal()">✕ Close</button>
+            </div>
+            <div class="modal-body cart-modal-body">
+                <div id="cartItemsContainer">
+                    <!-- Cart items will be loaded here -->
+                </div>
+                <div id="cartTotalSection" style="display: none;">
+                    <div class="cart-total">
+                        <div class="cart-total-row">
+                            <span>Subtotal:</span>
+                            <span id="cartSubtotal">Rp 0</span>
+                        </div>
+                        <div class="cart-total-row final">
+                            <span>Total:</span>
+                            <span id="cartTotal">Rp 0</span>
+                        </div>
+                    </div>
+                    <button class="cart-checkout-btn" onclick="checkout()">
+                        💬 Checkout via WhatsApp
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Vendor View Carts Modal -->
+    <div id="vendorCartsModal" class="modal">
+        <div class="modal-content" style="max-width: 600px;">
+            <div class="modal-header">
+                <h3>📊 Customer Carts</h3>
+                <button class="close-modal" onclick="closeVendorCartsModal()">✕ Close</button>
+            </div>
+            <div class="modal-body cart-modal-body">
+                <div id="vendorCartsContainer">
+                    <!-- Customer carts will be loaded here -->
                 </div>
             </div>
         </div>
@@ -2026,6 +2344,8 @@
         let repliedMessages = new Set();
         let unsubscribeChat = null;
         let currentEditMenuId = null;
+        let shoppingCart = JSON.parse(localStorage.getItem('foodfinderCart')) || { items: [] };
+        let customerId = localStorage.getItem('foodfinderCustomerId') || 'customer_' + Date.now();
 
         const chatlog = document.getElementById('chatlog');
         const userInput = document.getElementById('userInput');
@@ -2053,12 +2373,408 @@
             btn.parentElement.remove();
         }
 
+        // Image upload and preview functions
+        function handleImageUpload(input) {
+            const file = input.files[0];
+            if (file) {
+                // Check file size (max 200MB for Base64)
+                if (file.size > 2 * 1024 * 1024) {
+                    alert('Image size should be less than 2MB');
+                    input.value = '';
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const base64 = e.target.result;
+                    document.getElementById('gambarMenu').value = base64;
+                    document.getElementById('previewImg').src = base64;
+                    document.getElementById('imagePreview').style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function toggleImageUrlInput() {
+            const urlInput = document.getElementById('gambarMenu');
+            const isHidden = urlInput.style.display === 'none';
+
+            if (isHidden) {
+                urlInput.style.display = 'block';
+                urlInput.required = true;
+                urlInput.focus();
+            } else {
+                urlInput.style.display = 'none';
+                urlInput.required = false;
+            }
+        }
+
+        function clearImagePreview() {
+            document.getElementById('uploadGambar').value = '';
+            document.getElementById('gambarMenu').value = '';
+            document.getElementById('previewImg').src = '';
+            document.getElementById('imagePreview').style.display = 'none';
+        }
+
+        // Video preview function
+        document.getElementById('videoMenu')?.addEventListener('input', function (e) {
+            const url = e.target.value.trim();
+            const videoPreview = document.getElementById('videoPreview');
+            const previewVideo = document.getElementById('previewVideo');
+            const videoSource = document.getElementById('videoSource');
+
+            if (url) {
+                // Check if it's a YouTube URL
+                if (url.includes('youtube.com') || url.includes('youtu.be')) {
+                    videoPreview.innerHTML = `<iframe width="100%" height="200" style="border-radius: 12px;" src="${getYouTubeEmbedUrl(url)}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+                    videoPreview.style.display = 'block';
+                } else {
+                    // Assume it's a direct video URL
+                    videoSource.src = url;
+                    previewVideo.load();
+                    videoPreview.style.display = 'block';
+                }
+            } else {
+                videoPreview.style.display = 'none';
+            }
+        });
+
+        function getYouTubeEmbedUrl(url) {
+            let videoId = '';
+
+            // Handle youtube.com/watch?v=VIDEO_ID
+            if (url.includes('youtube.com/watch?v=')) {
+                videoId = url.split('v=')[1].split('&')[0];
+            }
+            // Handle youtu.be/VIDEO_ID
+            else if (url.includes('youtu.be/')) {
+                videoId = url.split('youtu.be/')[1].split('?')[0];
+            }
+            // Handle youtube.com/embed/VIDEO_ID
+            else if (url.includes('youtube.com/embed/')) {
+                videoId = url.split('embed/')[1].split('?')[0];
+            }
+            // Handle youtube.com/v/VIDEO_ID
+            else if (url.includes('youtube.com/v/')) {
+                videoId = url.split('v/')[1].split('?')[0];
+            }
+
+            // Return embed URL with parameters for better compatibility
+            return `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1`;
+        }
+
+        // ===== SHOPPING CART FUNCTIONS =====
+
+        async function saveCart() {
+            localStorage.setItem('foodfinderCart', JSON.stringify(shoppingCart));
+            localStorage.setItem('foodfinderCustomerId', customerId);
+            updateCartBadge();
+
+            // Sync to Firestore if customer mode
+            if (currentMode === 'customer') {
+                await syncCartToFirestore();
+            }
+        }
+
+        async function syncCartToFirestore() {
+            try {
+                // Group items by vendor
+                const itemsByVendor = {};
+                shoppingCart.items.forEach(item => {
+                    if (!itemsByVendor[item.vendor]) {
+                        itemsByVendor[item.vendor] = [];
+                    }
+                    itemsByVendor[item.vendor].push(item);
+                });
+
+                // Save each vendor's cart separately
+                for (const [vendor, items] of Object.entries(itemsByVendor)) {
+                    const cartRef = doc(db, 'customer_carts', `${customerId}_${vendor}`);
+                    const total = items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+                    await setDoc(cartRef, {
+                        customerId: customerId,
+                        vendor: vendor,
+                        items: items,
+                        total: total,
+                        lastUpdated: serverTimestamp()
+                    });
+                }
+
+                // Delete carts for vendors no longer in cart
+                const currentVendors = Object.keys(itemsByVendor);
+                // Note: In a production app, you'd want to track and clean up old vendor carts
+
+            } catch (error) {
+                console.error('Error syncing cart to Firestore:', error);
+            }
+        }
+
+        function updateCartBadge() {
+            const badge = document.getElementById('cartBadge');
+            const button = document.getElementById('cartButton');
+            const totalItems = shoppingCart.items.reduce((sum, item) => sum + item.quantity, 0);
+
+            if (totalItems > 0) {
+                badge.textContent = totalItems;
+                badge.style.display = 'flex';
+                button.classList.add('show');
+            } else {
+                badge.style.display = 'none';
+                button.classList.remove('show');
+            }
+        }
+
+        function addToCart(menuData, vendor, variant = '') {
+            const itemId = `${vendor}_${menuData.nama}_${variant}`.replace(/\s/g, '_');
+            const existingItem = shoppingCart.items.find(item => item.id === itemId);
+
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                shoppingCart.items.push({
+                    id: itemId,
+                    vendor: vendor,
+                    name: menuData.nama,
+                    price: menuData.harga,
+                    quantity: 1,
+                    variant: variant,
+                    image: menuData.gambar
+                });
+            }
+
+            saveCart();
+            showNotification(`✅ ${menuData.nama} added to cart!`);
+        }
+
+        function removeFromCart(itemId) {
+            shoppingCart.items = shoppingCart.items.filter(item => item.id !== itemId);
+            saveCart();
+            renderCart();
+        }
+
+        function updateQuantity(itemId, change) {
+            const item = shoppingCart.items.find(item => item.id === itemId);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    removeFromCart(itemId);
+                } else {
+                    saveCart();
+                    renderCart();
+                }
+            }
+        }
+
+        function getCartTotal() {
+            return shoppingCart.items.reduce((total, item) => total + (item.price * item.quantity), 0);
+        }
+
+        function renderCart() {
+            const container = document.getElementById('cartItemsContainer');
+            const totalSection = document.getElementById('cartTotalSection');
+
+            if (shoppingCart.items.length === 0) {
+                container.innerHTML = `
+                    <div class="cart-empty">
+                        <div class="cart-empty-icon">🛒</div>
+                        <p>Your cart is empty</p>
+                    </div>
+                `;
+                totalSection.style.display = 'none';
+                return;
+            }
+
+            container.innerHTML = shoppingCart.items.map(item => `
+                <div class="cart-item">
+                    <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+                    <div class="cart-item-info">
+                        <div class="cart-item-name">${item.name}</div>
+                        <div class="cart-item-vendor">📍 ${item.vendor}</div>
+                        ${item.variant ? `<div class="cart-item-variant">${item.variant}</div>` : ''}
+                        <div class="cart-item-price">Rp ${item.price.toLocaleString('id-ID')}</div>
+                    </div>
+                    <div class="cart-item-controls">
+                        <button class="cart-qty-btn" onclick="updateQuantity('${item.id}', -1)">−</button>
+                        <span class="cart-qty">${item.quantity}</span>
+                        <button class="cart-qty-btn" onclick="updateQuantity('${item.id}', 1)">+</button>
+                        <button class="cart-remove-btn" onclick="removeFromCart('${item.id}')">🗑️</button>
+                    </div>
+                </div>
+            `).join('');
+
+            const total = getCartTotal();
+            document.getElementById('cartSubtotal').textContent = `Rp ${total.toLocaleString('id-ID')}`;
+            document.getElementById('cartTotal').textContent = `Rp ${total.toLocaleString('id-ID')}`;
+            totalSection.style.display = 'block';
+        }
+
+        function openCartModal() {
+            renderCart();
+            document.getElementById('cartModal').style.display = 'block';
+        }
+
+        function closeCartModal() {
+            document.getElementById('cartModal').style.display = 'none';
+        }
+
+        async function checkout() {
+            if (shoppingCart.items.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+
+            // Group items by vendor
+            const itemsByVendor = {};
+            shoppingCart.items.forEach(item => {
+                if (!itemsByVendor[item.vendor]) {
+                    itemsByVendor[item.vendor] = [];
+                }
+                itemsByVendor[item.vendor].push(item);
+            });
+
+            // Get vendor WhatsApp numbers
+            const vendors = await window.ambilSemuaVendor();
+
+            // Create message for each vendor
+            for (const [vendorName, items] of Object.entries(itemsByVendor)) {
+                const vendor = vendors.find(v => v.nama === vendorName);
+                if (!vendor || !vendor.whatsapp) {
+                    alert(`WhatsApp number not found for ${vendorName}`);
+                    continue;
+                }
+
+                let message = `🛒 *New Order from FoodFinder*\n\n`;
+                message += `📋 *Order Details:*\n`;
+
+                items.forEach((item, index) => {
+                    message += `\n${index + 1}. ${item.name}`;
+                    if (item.variant) message += ` (${item.variant})`;
+                    message += `\n   Qty: ${item.quantity} x Rp ${item.price.toLocaleString('id-ID')}`;
+                    message += `\n   Subtotal: Rp ${(item.price * item.quantity).toLocaleString('id-ID')}\n`;
+                });
+
+                const vendorTotal = items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                message += `\n💰 *Total: Rp ${vendorTotal.toLocaleString('id-ID')}*`;
+
+                const whatsappUrl = `https://wa.me/${vendor.whatsapp}?text=${encodeURIComponent(message)}`;
+                window.open(whatsappUrl, '_blank');
+            }
+
+            // Clear cart after checkout
+            shoppingCart.items = [];
+            saveCart();
+            closeCartModal();
+            showNotification('✅ Order sent! Check your WhatsApp.');
+        }
+
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: linear-gradient(135deg, var(--primary-gold) 0%, #B8941E 100%);
+                color: white;
+                padding: 16px 24px;
+                border-radius: 12px;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+                z-index: 10000;
+                font-weight: 600;
+                animation: slideIn 0.3s ease;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // Initialize cart on page load
+        window.addEventListener('load', () => {
+            updateCartBadge();
+        });
+
+        // ===== VENDOR CART VISIBILITY FUNCTIONS =====
+
+        let vendorCartListener = null;
+
+        function viewCustomerCarts() {
+            if (!vendorName) return;
+
+            document.getElementById('vendorCartsModal').style.display = 'block';
+            document.getElementById('vendorCartsContainer').innerHTML = '<div style="text-align:center;">Loading carts...</div>';
+
+            const cartsQuery = query(collection(db, 'customer_carts'), where('vendor', '==', vendorName));
+
+            // Listen for real-time updates
+            vendorCartListener = onSnapshot(cartsQuery, (snapshot) => {
+                const container = document.getElementById('vendorCartsContainer');
+
+                if (snapshot.empty) {
+                    container.innerHTML = `
+                        <div class="cart-empty">
+                            <div class="cart-empty-icon">🛒</div>
+                            <p>No active customer carts</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                container.innerHTML = '';
+
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    const lastActive = data.lastUpdated ? new Date(data.lastUpdated.toDate()).toLocaleTimeString() : 'Unknown';
+
+                    const cartCard = document.createElement('div');
+                    cartCard.className = 'cart-total';
+                    cartCard.style.marginBottom = '15px';
+
+                    let itemsHtml = data.items.map(item => `
+                        <div style="display:flex; justify-content:space-between; margin-bottom:5px; font-size:13px; border-bottom:1px dashed #ddd; padding-bottom:5px;">
+                            <div>
+                                <b>${item.quantity}x ${item.name}</b>
+                                ${item.variant ? `<span style="color:var(--primary-gold);">(${item.variant})</span>` : ''}
+                            </div>
+                            <div>Rp ${(item.price * item.quantity).toLocaleString('id-ID')}</div>
+                        </div>
+                    `).join('');
+
+                    cartCard.innerHTML = `
+                        <div style="display:flex; justify-content:space-between; margin-bottom:10px; border-bottom:2px solid var(--gray-medium); padding-bottom:5px;">
+                            <b style="color:var(--primary-dark);">👤 Customer (${data.customerId.split('_')[1]})</b>
+                            <span style="font-size:12px; color:var(--gray-dark);">Last active: ${lastActive}</span>
+                        </div>
+                        <div style="margin-bottom:10px;">
+                            ${itemsHtml}
+                        </div>
+                        <div style="text-align:right; font-weight:bold; color:var(--accent-burgundy);">
+                            Total Potential Order: Rp ${data.total.toLocaleString('id-ID')}
+                        </div>
+                    `;
+
+                    container.appendChild(cartCard);
+                });
+            });
+        }
+
+        function closeVendorCartsModal() {
+            document.getElementById('vendorCartsModal').style.display = 'none';
+            if (vendorCartListener) {
+                vendorCartListener(); // Unsubscribe
+                vendorCartListener = null;
+            }
+        }
+
         function masukSebagaiCustomer() {
             currentMode = 'customer';
             vendorName = null;
             modeSelection.style.display = 'none';
             chatContainer.style.display = 'flex';
-            
+
             headerTitle.textContent = '🍽️ FoodFinder Chat';
             headerSubtitle.textContent = 'Connected with all vendors';
             chatHeader.classList.remove('vendor-mode');
@@ -2092,7 +2808,7 @@
                 vendorEmoji = vendor.emoji;
                 vendorLogin.style.display = 'none';
                 chatContainer.style.display = 'flex';
-                
+
                 headerTitle.textContent = `${vendor.emoji} ${vendor.nama}`;
                 headerSubtitle.textContent = 'Vendor Mode - Connected with customers';
                 chatHeader.classList.add('vendor-mode');
@@ -2147,9 +2863,9 @@
             });
         }
 
-        document.getElementById('addVendorForm').addEventListener('submit', async function(e) {
+        document.getElementById('addVendorForm').addEventListener('submit', async function (e) {
             e.preventDefault();
-            
+
             const errorDiv = document.getElementById('adminError');
             const successDiv = document.getElementById('adminSuccess');
             errorDiv.style.display = 'none';
@@ -2191,12 +2907,12 @@
                 unsubscribeChat();
                 unsubscribeChat = null;
             }
-            
+
             window.clearRoom();
-            
+
             console.log("🧹 Deleting all chat messages...");
             await window.hapusSemuaPesanChat();
-            
+
             chatContainer.style.display = 'none';
             vendorLogin.style.display = 'none';
             adminPanel.style.display = 'none';
@@ -2204,26 +2920,26 @@
             chatlog.innerHTML = '';
             currentMode = null;
             vendorName = null;
-            
+
             // Reset form
             document.getElementById('vendorUsername').value = '';
             document.getElementById('vendorPassword').value = '';
-            
+
             console.log("✅ Logout successful - Chat cleared!");
         }
 
         function mulaiChat() {
             chatlog.innerHTML = '';
-            
+
             const systemMsg = document.createElement('div');
             systemMsg.className = 'system-message';
-            
+
             if (currentMode === 'customer') {
                 systemMsg.innerHTML = '🔔 You are connected with all vendors.<br><small>Chat will auto-clear after 5 minutes of inactivity.</small>';
             } else {
                 systemMsg.textContent = `🔔 Welcome ${vendorName}! You can view customer inquiries and display your menu.`;
             }
-            
+
             chatlog.appendChild(systemMsg);
 
             unsubscribeChat = window.listenChat((messages) => {
@@ -2233,7 +2949,7 @@
 
         function renderChat(messages) {
             const isScrolledToBottom = chatlog.scrollHeight - chatlog.clientHeight <= chatlog.scrollTop + 1;
-            
+
             const systemMessages = chatlog.querySelectorAll('.system-message');
             chatlog.innerHTML = '';
             systemMessages.forEach(msg => chatlog.appendChild(msg));
@@ -2283,7 +2999,7 @@
 
         function tambahPesanText(pengirim, teks, autoScroll = true) {
             const messageDiv = document.createElement('div');
-            
+
             const isCustomer = pengirim === 'Customer' || pengirim.includes('Customer');
             messageDiv.className = `message ${isCustomer ? 'customer' : 'vendor'}`;
 
@@ -2313,9 +3029,9 @@
             messageDiv.appendChild(header);
             messageDiv.appendChild(bubble);
             bubble.appendChild(time);
-            
+
             chatlog.appendChild(messageDiv);
-            
+
             if (autoScroll) {
                 chatlog.scrollTop = chatlog.scrollHeight;
             }
@@ -2334,7 +3050,7 @@
 
             const menuOffer = document.createElement('div');
             menuOffer.className = 'menu-offer';
-            
+
             let opsiHTML = '';
             if (menuData.opsiVarian && menuData.opsiVarian.length > 0 && currentMode === 'customer') {
                 opsiHTML = '<div class="menu-options">';
@@ -2343,26 +3059,37 @@
                 });
                 opsiHTML += '</div>';
             }
-            
+
+            let videoHTML = '';
+            if (menuData.video) {
+                if (menuData.video.includes('youtube.com') || menuData.video.includes('youtu.be')) {
+                    const embedUrl = getYouTubeEmbedUrl(menuData.video);
+                    videoHTML = `<iframe width="100%" height="200" style="border-radius: 12px; margin-bottom: 12px;" src="${embedUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+                } else {
+                    videoHTML = `<video controls style="width: 100%; max-height: 200px; border-radius: 12px; margin-bottom: 12px;"><source src="${menuData.video}" type="video/mp4"></video>`;
+                }
+            }
+
             menuOffer.innerHTML = `
                 <img src="${menuData.gambar}" alt="${menuData.nama}">
                 <div class="menu-offer-info">
                     <h4>${menuData.nama}</h4>
                     <div class="price">Rp ${Number(menuData.harga).toLocaleString('id-ID')}</div>
                     <div class="description">${menuData.deskripsi}</div>
+                    ${videoHTML}
                     ${opsiHTML}
-                    ${currentMode === 'customer' ? '<button class="order-btn" data-vendor="' + pengirim + '" data-menu="' + menuData.nama + '" ' + (menuData.opsiVarian && menuData.opsiVarian.length > 0 ? 'disabled' : '') + '>💬 Order Now</button>' : ''}
+                    ${currentMode === 'customer' ? '<button class="order-btn" data-vendor="' + pengirim + '" data-menu="' + menuData.nama + '" ' + (menuData.opsiVarian && menuData.opsiVarian.length > 0 ? 'disabled' : '') + '>🛒 Add to Cart</button>' : ''}
                 </div>
             `;
 
             if (currentMode === 'customer') {
                 const orderBtn = menuOffer.querySelector('.order-btn');
                 if (orderBtn) {
-                    orderBtn.onclick = function() {
+                    orderBtn.onclick = function () {
                         const vendorName = this.getAttribute('data-vendor');
                         const menuName = this.getAttribute('data-menu');
                         const selectedOpsi = this.getAttribute('data-selected-opsi') || '';
-                        pesanMenu(menuName, vendorName, selectedOpsi);
+                        addToCart(menuData, vendorName, selectedOpsi);
                     };
                 }
             }
@@ -2376,9 +3103,9 @@
             messageDiv.appendChild(header);
             messageDiv.appendChild(bubble);
             bubble.appendChild(time);
-            
+
             chatlog.appendChild(messageDiv);
-            
+
             if (autoScroll) {
                 chatlog.scrollTop = chatlog.scrollHeight;
             }
@@ -2388,13 +3115,13 @@
             const parent = btn.closest('.menu-offer-info');
             const allOptions = parent.querySelectorAll('.menu-option-btn');
             allOptions.forEach(opt => opt.classList.remove('selected'));
-            
+
             btn.classList.add
 
             if (currentMode === 'customer') {
                 const orderBtn = menuOffer.querySelector('.order-btn');
                 if (orderBtn) {
-                    orderBtn.onclick = function() {
+                    orderBtn.onclick = function () {
                         const vendorName = this.getAttribute('data-vendor');
                         const menuName = this.getAttribute('data-menu');
                         const selectedOpsi = this.getAttribute('data-selected-opsi') || '';
@@ -2412,9 +3139,9 @@
             messageDiv.appendChild(header);
             messageDiv.appendChild(bubble);
             bubble.appendChild(time);
-            
+
             chatlog.appendChild(messageDiv);
-            
+
             if (autoScroll) {
                 chatlog.scrollTop = chatlog.scrollHeight;
             }
@@ -2424,9 +3151,9 @@
             const parent = btn.closest('.menu-offer-info');
             const allOptions = parent.querySelectorAll('.menu-option-btn');
             allOptions.forEach(opt => opt.classList.remove('selected'));
-            
+
             btn.classList.add('selected');
-            
+
             const orderBtn = parent.querySelector('.order-btn');
             orderBtn.disabled = false;
             orderBtn.setAttribute('data-selected-opsi', btn.getAttribute('data-opsi'));
@@ -2437,7 +3164,7 @@
             if (!text) return;
 
             const pengirim = currentMode === 'customer' ? 'Customer' : vendorName;
-            
+
             tambahPesanText(pengirim, text);
             userInput.value = '';
 
@@ -2459,7 +3186,7 @@
 
                         if (hasilMenu.length > 0) {
                             tambahPesanText('🤖 FoodFinder Bot', `I found ${hasilMenu.length} matching menu items:`, true);
-                            
+
                             setTimeout(() => {
                                 hasilMenu.forEach((menu, index) => {
                                     setTimeout(() => {
@@ -2515,9 +3242,9 @@
             menuList.forEach(menu => {
                 const menuCard = document.createElement('div');
                 menuCard.className = 'menu-item-card';
-                
-                const variantsText = menu.opsiVarian && menu.opsiVarian.length > 0 
-                    ? `Variants: ${menu.opsiVarian.join(', ')}` 
+
+                const variantsText = menu.opsiVarian && menu.opsiVarian.length > 0
+                    ? `Variants: ${menu.opsiVarian.join(', ')}`
                     : 'No variants';
 
                 menuCard.innerHTML = `
@@ -2541,7 +3268,7 @@
             currentEditMenuId = null;
             document.getElementById('formTitle').textContent = '➕ Add New Menu';
             document.getElementById('menuForm').reset();
-            
+
             const container = document.getElementById('opsiContainer');
             container.innerHTML = `
                 <div class="option-input-row">
@@ -2549,7 +3276,7 @@
                     <button type="button" class="remove-option-btn" onclick="hapusOpsi(this)" style="display:none;">✕</button>
                 </div>
             `;
-            
+
             document.getElementById('menuFormModal').style.display = 'block';
         }
 
@@ -2569,7 +3296,7 @@
 
                 const container = document.getElementById('opsiContainer');
                 container.innerHTML = '';
-                
+
                 if (menu.opsiVarian && menu.opsiVarian.length > 0) {
                     menu.opsiVarian.forEach((opsi, idx) => {
                         const row = document.createElement('div');
@@ -2598,7 +3325,7 @@
             currentEditMenuId = null;
         }
 
-        document.getElementById('menuForm').addEventListener('submit', async function(e) {
+        document.getElementById('menuForm').addEventListener('submit', async function (e) {
             e.preventDefault();
 
             const opsiInputs = document.querySelectorAll('.opsi-input');
@@ -2615,7 +3342,8 @@
                 deskripsi: document.getElementById('deskripsiMenu').value,
                 gambar: document.getElementById('gambarMenu').value,
                 kategori: document.getElementById('kategoriMenu').value,
-                opsiVarian: opsiVarian
+                opsiVarian: opsiVarian,
+                video: document.getElementById('videoMenu').value.trim() || null
             };
 
             if (currentEditMenuId) {
@@ -2668,7 +3396,7 @@
                 const menuItem = document.createElement('div');
                 menuItem.className = 'show-menu-item';
                 menuItem.onclick = () => tampilkanMenuKeCustomer(menu);
-                
+
                 menuItem.innerHTML = `
                     <img src="${menu.gambar}" alt="${menu.nama}">
                     <div class="show-menu-item-info">
@@ -2692,7 +3420,7 @@
                 pesanText += ` (${opsiTerpilih})`;
             }
             pesanText += `. How can I place the order?`;
-            
+
             tambahPesanText('Customer 🔒', pesanText + ` → to ${vendorName}`, true);
             kirimPesanPrivate(pesanText, vendorName);
         }
@@ -2718,7 +3446,7 @@
             return 'https://wa.me/6281234567890?text=Selamat%20datang%20di%20toko%20kami';
         }
 
-        window.onclick = function(event) {
+        window.onclick = function (event) {
             if (event.target.classList.contains('modal')) {
                 event.target.style.display = 'none';
             }
@@ -2739,7 +3467,7 @@
                 month: 'long',
                 day: 'numeric'
             });
-            
+
             document.getElementById('digitalClock').innerHTML = `
                 <div class="clock-time">${timeString}</div>
                 <div class="clock-date">${dateString}</div>
@@ -2757,4 +3485,5 @@
         <div class="clock-date">Loading...</div>
     </div>
 </body>
+
 </html>
